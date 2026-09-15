@@ -4,12 +4,32 @@ service cloud.firestore {
     match /messages/{messageId} {
       allow read: if true;
       allow create: if request.resource.data.keys().hasOnly(['name','text','createdAt'])
-        && request.resource.data.name is string
-        && request.resource.data.text is string
-        && request.resource.data.name.size() > 0
-        && request.resource.data.name.size() <= 60
-        && request.resource.data.text.size() > 0
-        && request.resource.data.text.size() <= 300;
+        && request.resource.data.name is string && request.resource.data.text is string
+        && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 60
+        && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 300;
+      allow update, delete: if false;
+    }
+    match /media/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['name','type','title','url','caption','status','createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 60
+        && request.resource.data.type in ['photo','video','song']
+        && request.resource.data.title is string && request.resource.data.title.size() > 0 && request.resource.data.title.size() <= 100
+        && request.resource.data.url is string && request.resource.data.url.size() > 0 && request.resource.data.url.size() <= 500
+        && request.resource.data.caption is string && request.resource.data.caption.size() <= 300
+        && request.resource.data.status == 'approved';
+      allow update, delete: if false;
+    }
+    match /seva/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['name','type','location','time','phone','note','status','createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 80
+        && request.resource.data.type is string && request.resource.data.type.size() > 0 && request.resource.data.type.size() <= 100
+        && request.resource.data.location is string && request.resource.data.location.size() > 0 && request.resource.data.location.size() <= 150
+        && request.resource.data.time is string && request.resource.data.time.size() > 0 && request.resource.data.time.size() <= 100
+        && request.resource.data.phone is string && request.resource.data.phone.size() > 0 && request.resource.data.phone.size() <= 15
+        && request.resource.data.note is string && request.resource.data.note.size() <= 300
+        && request.resource.data.status == 'approved';
       allow update, delete: if false;
     }
   }
