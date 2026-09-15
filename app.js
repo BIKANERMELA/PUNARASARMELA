@@ -1,0 +1,9 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig={apiKey:"AIzaSyA9dEr5JvvGo-xQ-6llmV6rCt_5P258YR0",authDomain:"punarasarmela.firebaseapp.com",projectId:"punarasarmela",storageBucket:"punarasarmela.firebasestorage.app",messagingSenderId:"368252030672",appId:"1:368252030672:web:531a9c3307271819e698d5",measurementId:"G-YMC3Y69L6H"};
+const app=initializeApp(firebaseConfig); const db=getFirestore(app);
+const form=document.querySelector('#messageForm'),status=document.querySelector('#status'),list=document.querySelector('#messages');
+form.addEventListener('submit',async e=>{e.preventDefault();status.textContent='संदेश भेजा जा रहा है…';try{await addDoc(collection(db,'messages'),{name:document.querySelector('#name').value.trim(),text:document.querySelector('#text').value.trim(),createdAt:serverTimestamp()});form.reset();status.textContent='संदेश सफलतापूर्वक भेज दिया गया ❤️';}catch(err){console.error(err);status.textContent='अभी संदेश नहीं भेजा जा सका। Firebase rules की जरूरत है।';}});
+const q=query(collection(db,'messages'),orderBy('createdAt','desc'),limit(30));
+onSnapshot(q,snap=>{list.innerHTML='';snap.forEach(d=>{const x=d.data(),el=document.createElement('article');el.className='message';const n=document.createElement('strong');n.textContent='🚩 '+(x.name||'श्रद्धालु');const p=document.createElement('p');p.textContent=x.text||'';el.append(n,p);list.appendChild(el);});},err=>console.error('Firestore:',err));
