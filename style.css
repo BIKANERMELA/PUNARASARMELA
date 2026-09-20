@@ -9,3 +9,4 @@ input[type=file]{padding:12px;background:#fffaf4;border-style:dashed;cursor:poin
 .float-wa{background:#25d366;color:#fff}
 .float-help{background:#8b1e1e;color:#fff}
 @media(max-width:520px){.floating-actions{right:12px;bottom:12px}.floating-actions a{width:50px;height:50px;font-size:24px}}
+.admin-preview{display:block;width:min(360px,100%);max-height:280px;object-fit:cover;border-radius:16px;margin:10px 0;border:1px solid #eadfd6;background:#170806}.admin-preview[controls]{object-fit:contain}
