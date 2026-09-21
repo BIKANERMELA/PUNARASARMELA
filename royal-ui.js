@@ -8,14 +8,32 @@ const db=getFirestore(app);
 const storage=getStorage(app);
 const $=s=>document.querySelector(s);
 
+const INSTAGRAM_URL="https://www.instagram.com/bhaktbabaka5555/";
+
 function esc(v){const d=document.createElement("div");d.textContent=v??"";return d.innerHTML}
 function safeDriveUrl(v){try{const u=new URL(String(v||"").trim());return u.protocol==="https:"&&u.hostname==="drive.google.com"?u.href:""}catch{return""}}
+
+function createInstagramFloatingWidget(){
+  if(document.getElementById("instagramFloatingWidget"))return;
+  const style=document.createElement("style");
+  style.textContent=".instagram-floating-widget{position:fixed;right:20px;bottom:158px;z-index:1002;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;text-decoration:none;color:#fff;background:linear-gradient(135deg,#833ab4 0%,#fd1d1d 55%,#fcb045 100%);border:2px solid #fff;box-shadow:0 10px 28px rgba(75,10,30,.32),0 0 0 5px rgba(255,255,255,.12);font-size:29px;transition:transform .2s ease,box-shadow .2s ease}.instagram-floating-widget:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 32px rgba(75,10,30,.4),0 0 0 6px rgba(255,255,255,.16)}.instagram-floating-widget span{position:absolute;right:66px;white-space:nowrap;padding:8px 12px;border-radius:999px;background:#4d0e15;color:#ffe4a4;font:800 13px 'Noto Sans Devanagari',sans-serif;opacity:0;transform:translateX(8px);pointer-events:none;transition:.2s}.instagram-floating-widget:hover span{opacity:1;transform:translateX(0)}@media(max-width:520px){.instagram-floating-widget{right:12px;bottom:136px;width:52px;height:52px;font-size:25px}.instagram-floating-widget span{display:none}}";
+  document.head.append(style);
+  const a=document.createElement("a");
+  a.id="instagramFloatingWidget";
+  a.className="instagram-floating-widget";
+  a.href=INSTAGRAM_URL;
+  a.target="_blank";
+  a.rel="noopener noreferrer";
+  a.setAttribute("aria-label","Official Instagram पर जाएँ");
+  a.innerHTML='<span>Official Instagram</span>📸';
+  document.body.append(a);
+}
 
 function welcomeModal(){
   if($("#royalWelcomeModal"))return;
   const m=document.createElement("div");
   m.id="royalWelcomeModal";m.className="royal-welcome-modal";
-  m.innerHTML='<div class="royal-welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle"><button class="royal-modal-close" type="button" aria-label="बंद करें">✕</button><div class="welcome-flag">🚩</div><h2 id="welcomeTitle">श्री कोडमदेसर भैरूनाथ मेला 2026</h2><div class="welcome-divider"></div><p>जय श्री भैरूनाथ 🙏<br>मेले की Daily Reels, दर्शन अपडेट और Live जानकारी के लिए हमारे Official Instagram से जुड़ें।</p><div class="welcome-actions"><a class="btn instagram-btn" href="https://www.instagram.com/" target="_blank" rel="noopener">📸 Instagram पर फॉलो करें</a><button class="btn light welcome-close" type="button">वेबसाइट देखें</button></div></div>';
+  m.innerHTML='<div class="royal-welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle"><button class="royal-modal-close" type="button" aria-label="बंद करें">✕</button><div class="welcome-flag">🚩</div><h2 id="welcomeTitle">श्री कोडमदेसर भैरूनाथ मेला 2026</h2><div class="welcome-divider"></div><p>जय श्री भैरूनाथ 🙏<br>मेले की Daily Reels, दर्शन अपडेट और Live जानकारी के लिए हमारे Official Instagram से जुड़ें।</p><div class="welcome-actions"><a class="btn instagram-btn" href="'+INSTAGRAM_URL+'" target="_blank" rel="noopener">📸 Instagram पर फॉलो करें</a><button class="btn light welcome-close" type="button">वेबसाइट देखें</button></div></div>';
   document.body.append(m);
   const close=()=>{m.classList.remove("show");document.body.style.overflow=""};
   m.querySelector(".royal-modal-close").onclick=close;m.querySelector(".welcome-close").onclick=close;
@@ -72,6 +90,7 @@ function cleanupOldDriveBridge(){
 
 document.addEventListener("DOMContentLoaded",()=>{
   cleanupOldDriveBridge();
+  createInstagramFloatingWidget();
   welcomeModal();
   $("#mediaForm")?.addEventListener("submit",submitFirebaseMedia);
   document.body.classList.remove("dark-mode");
