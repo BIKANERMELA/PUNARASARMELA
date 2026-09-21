@@ -4,20 +4,68 @@ const firebaseConfig={apiKey:"AIzaSyA9dEr5JvvGo-xQ-6llmV6rCt_5P258YR0",authDomai
 const app=initializeApp(firebaseConfig); const db=getFirestore(app); const $=s=>document.querySelector(s);
 const INSTAGRAM_URL='https://www.instagram.com/';
 let galleryFilter='all';
-const POSTER_BASE_IMAGE='assets/kodamdesar-hero.svg';
-const posterStyles={classic:['#5b0909','#a62b17','#2b0808'],royal:['#21120a','#6b4515','#120a06'],minimal:['#3b1712','#b85a2b','#24100c']};
+const POSTER_BASE_IMAGE='assets/bhairunath-poster-bg.jpg';
+const posterStyles={classic:['#4d0b12','#9e241d','#1d0508'],royal:['#2b0d0d','#8c4518','#120607'],minimal:['#3a1115','#8d2f22','#18080b']};
 const wishCanvas=$('#wishPosterCanvas');
 const wishCtx=wishCanvas?.getContext('2d');
 let wishPhotoData=null,wishGenerated=false,wishFollowed=false;
-if($('#instagramFollowBtn')) $('#instagramFollowBtn').href=INSTAGRAM_URL;
+if($('#instagramFollowBtn')) $('#instagramFollowBtn').href='https://www.instagram.com/bhaktbabaka5555/';
 function roundedRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
-function drawWishPoster(){if(!wishCtx)return;const W=1080,H=1920,ps=$('#posterStyle')?.value||'classic',pc=posterStyles[ps]||posterStyles.classic,g=wishCtx.createLinearGradient(0,0,W,H);g.addColorStop(0,pc[0]);g.addColorStop(.48,pc[1]);g.addColorStop(1,pc[2]);wishCtx.fillStyle=g;wishCtx.fillRect(0,0,W,H);wishCtx.fillStyle='#f4bd45';wishCtx.globalAlpha=.16;wishCtx.beginPath();wishCtx.arc(860,360,280,0,Math.PI*2);wishCtx.fill();wishCtx.globalAlpha=1;wishCtx.strokeStyle='#f4bd45';wishCtx.lineWidth=7;roundedRect(wishCtx,38,38,W-76,H-76,34);wishCtx.stroke();wishCtx.textAlign='center';wishCtx.fillStyle='#ffd86b';wishCtx.font='bold 48px Noto Sans Devanagari, sans-serif';wishCtx.fillText('🚩 जय श्री भैरूनाथ 🚩',W/2,125);wishCtx.fillStyle='#fff7e8';wishCtx.font='bold 43px Noto Sans Devanagari, sans-serif';wishCtx.fillText('समस्त पदयात्रियों एवं श्रद्धालुओं को',W/2,205);wishCtx.fillText('कोडमदेसर भैरूनाथ मेले की',W/2,260);wishCtx.fillStyle='#ffd86b';wishCtx.font='bold 58px Noto Sans Devanagari, sans-serif';wishCtx.fillText('हार्दिक शुभकामनाएं 🙏',W/2,330);
-if(wishPhotoData){const im=new Image();im.onload=()=>drawWishPhoto(im);im.src=wishPhotoData;return}drawWishBase();}
-function drawWishBase(){const x=120,y=410,w=840,h=920;wishCtx.fillStyle='#fff3dc';roundedRect(wishCtx,x,y,w,h,42);wishCtx.fill();if(!wishPhotoData){const fixed=new Image();fixed.onload=()=>{wishCtx.save();roundedRect(wishCtx,x,y,w,h,42);wishCtx.clip();const s=Math.max(w/fixed.width,h/fixed.height),nw=fixed.width*s,nh=fixed.height*s;wishCtx.drawImage(fixed,x+(w-nw)/2,y+(h-nh)/2,nw,nh);wishCtx.restore();wishCtx.strokeStyle='#ffd86b';wishCtx.lineWidth=10;roundedRect(wishCtx,x,y,w,h,42);wishCtx.stroke()};fixed.src=POSTER_BASE_IMAGE;}wishCtx.fillStyle='#8b1e1e';wishCtx.font='bold 44px Noto Sans Devanagari, sans-serif';wishCtx.fillText('कोडमदेसर भैरूनाथ धाम',W2(),1380);wishCtx.fillStyle='#ffd86b';wishCtx.font='bold 52px Noto Sans Devanagari, sans-serif';wishCtx.fillText('24–25 सितम्बर 2026',W2(),1460);wishCtx.fillStyle='#fff7e8';wishCtx.font='bold 43px Noto Sans Devanagari, sans-serif';wishCtx.fillText('सौजन्य से — '+($('#wishName')?.value.trim()||'आपका नाम'),W2(),1585);wishCtx.font='bold 30px Arial,sans-serif';wishCtx.fillText('Kodamdesar Bhairunath Mela 2026',W2(),1690);wishCtx.font='26px Arial,sans-serif';wishCtx.fillText('Website • Instagram',W2(),1740);wishCtx.fillStyle='#ffd86b';wishCtx.font='bold 34px Noto Sans Devanagari, sans-serif';wishCtx.fillText('जय श्री भैरूनाथ 🚩',W2(),1820)}
-function W2(){return 540}
-function drawWishPhoto(im){const x=120,y=410,w=840,h=920;wishCtx.save();roundedRect(wishCtx,x,y,w,h,42);wishCtx.clip();const s=Math.max(w/im.width,h/im.height),nw=im.width*s,nh=im.height*s;wishCtx.drawImage(im,x+(w-nw)/2,y+(h-nh)/2,nw,nh);wishCtx.restore();const frame=$('#posterFrame')?.value||'gold';wishCtx.strokeStyle=frame==='simple'?'#fff7e8':'#ffd86b';wishCtx.lineWidth=frame==='simple'?5:12;if(frame==='round'){wishCtx.beginPath();wishCtx.arc(540,875,410,0,Math.PI*2);wishCtx.stroke()}else{roundedRect(wishCtx,x,y,w,h,42);wishCtx.stroke()}drawWishBaseText()}
-function drawWishBaseText(){wishCtx.fillStyle='#fff';wishCtx.textAlign='center';wishCtx.font='bold 42px Noto Sans Devanagari, sans-serif';wishCtx.fillText('कोडमदेसर भैरूनाथ धाम',540,1380);wishCtx.fillStyle='#ffd86b';wishCtx.font='bold 52px Noto Sans Devanagari, sans-serif';wishCtx.fillText('24–25 सितम्बर 2026',540,1460);wishCtx.fillStyle='#fff7e8';wishCtx.font='bold 43px Noto Sans Devanagari, sans-serif';wishCtx.fillText('सौजन्य से — '+($('#wishName')?.value.trim()||'आपका नाम'),540,1585);wishCtx.font='bold 30px Arial,sans-serif';wishCtx.fillText('Kodamdesar Bhairunath Mela 2026',540,1690);wishCtx.font='26px Arial,sans-serif';wishCtx.fillText('Website • Instagram',540,1740);wishCtx.fillStyle='#ffd86b';wishCtx.font='bold 34px Noto Sans Devanagari, sans-serif';wishCtx.fillText('जय श्री भैरूनाथ 🚩',540,1820)}
-if($('#wishPosterForm')){$('#wishPosterForm').addEventListener('submit',e=>{e.preventDefault();wishGenerated=true;drawWishPoster();$('#wishPosterStatus').textContent='Poster तैयार है ❤️ नीचे preview देखें।';$('#posterGate').classList.add('show');});$('#wishPhoto').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>8*1024*1024){$('#wishPosterStatus').textContent='फोटो अधिकतम 8MB रखें।';e.target.value='';return}const r=new FileReader();r.onload=()=>{wishPhotoData=r.result;$('#wishPhotoPreview').innerHTML='<img src="'+r.result+'" alt="आपकी फोटो">';if(wishGenerated)drawWishPoster()};r.readAsDataURL(f)});$('#posterStyle')?.addEventListener('change',()=>wishGenerated&&drawWishPoster());$('#posterFrame')?.addEventListener('change',()=>wishGenerated&&drawWishPoster());$('#instagramConfirmBtn').addEventListener('click',()=>{if(!wishGenerated){$('#wishPosterStatus').textContent='पहले Poster तैयार करें।';return}wishFollowed=true;$('#posterGate').classList.add('confirmed');$('#downloadWishPoster').disabled=false;$('#shareWishPoster').disabled=false;$('#wishPosterStatus').textContent='धन्यवाद ❤️ अब HD Poster download कर सकते हैं।'});$('#downloadWishPoster').addEventListener('click',()=>{if(!wishFollowed)return;const a=document.createElement('a');a.download='Kodamdesar-Bhairunath-Shubhkamna-Poster.png';a.href=wishCanvas.toDataURL('image/png',1);a.click()});$('#shareWishPoster').addEventListener('click',async()=>{if(!wishFollowed)return;const text='कोडमदेसर भैरूनाथ मेला 2026 की हार्दिक शुभकामनाएं 🚩\n24–25 सितम्बर 2026\n'+location.href;window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')});}
+function drawCoverImage(src,x,y,w,h,cover=true,done){
+  const im=new Image();
+  im.onload=()=>{const s=cover?Math.max(w/im.width,h/im.height):Math.min(w/im.width,h/im.height),nw=im.width*s,nh=im.height*s;wishCtx.drawImage(im,x+(w-nw)/2,y+(h-nh)/2,nw,nh);done?.(im)};
+  im.src=src;
+}
+function drawWishPoster(){
+  if(!wishCtx)return;
+  const W=1080,H=1920,ps=$('#posterStyle')?.value||'classic',pc=posterStyles[ps]||posterStyles.classic;
+  wishCtx.clearRect(0,0,W,H);
+  const bg=wishCtx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#24070a');bg.addColorStop(.55,pc[1]);bg.addColorStop(1,pc[2]);wishCtx.fillStyle=bg;wishCtx.fillRect(0,0,W,H);
+  drawCoverImage(POSTER_BASE_IMAGE,0,0,W,H,true,()=>drawPosterOverlay());
+}
+function drawPosterOverlay(){
+  const W=1080,H=1920;
+  const shade=wishCtx.createLinearGradient(0,0,0,H);shade.addColorStop(0,'rgba(35,3,7,.78)');shade.addColorStop(.28,'rgba(35,3,7,.10)');shade.addColorStop(.62,'rgba(35,3,7,.18)');shade.addColorStop(1,'rgba(35,3,7,.82)');
+  wishCtx.fillStyle=shade;wishCtx.fillRect(0,0,W,H);
+  wishCtx.textAlign='center';
+  wishCtx.fillStyle='#ffe7a2';wishCtx.font='800 36px Noto Sans Devanagari, sans-serif';wishCtx.fillText('🚩 जय श्री भैरूनाथ 🚩',W/2,90);
+  wishCtx.fillStyle='#fff';wishCtx.font='800 54px Noto Sans Devanagari, sans-serif';wishCtx.fillText('समस्त भक्तों एवं श्रद्धालुओं को',W/2,160);
+  wishCtx.fillStyle='#ffd45f';wishCtx.font='900 72px Noto Sans Devanagari, sans-serif';wishCtx.fillText('भैरूनाथ मेले की',W/2,245);
+  wishCtx.fillStyle='#fff';wishCtx.font='900 66px Noto Sans Devanagari, sans-serif';wishCtx.fillText('हार्दिक शुभकामनाएं',W/2,325);
+  const panelY=1430;
+  wishCtx.fillStyle='rgba(76,8,15,.88)';roundedRect(wishCtx,42,panelY,996,430,42);wishCtx.fill();
+  wishCtx.strokeStyle='#ffd45f';wishCtx.lineWidth=5;roundedRect(wishCtx,42,panelY,996,430,42);wishCtx.stroke();
+  drawUserPhotoAndText(panelY);
+}
+function drawUserPhotoAndText(panelY){
+  const W=1080;
+  const frameX=690,frameY=1490,frameW=270,frameH=330;
+  if(wishPhotoData){
+    const im=new Image();
+    im.onload=()=>{wishCtx.save();roundedRect(wishCtx,frameX,frameY,frameW,frameH,28);wishCtx.clip();const s=Math.max(frameW/im.width,frameH/im.height),nw=im.width*s,nh=im.height*s;wishCtx.drawImage(im,frameX+(frameW-nw)/2,frameY+(frameH-nh)/2,nw,nh);wishCtx.restore();wishCtx.strokeStyle='#ffd45f';wishCtx.lineWidth=10;roundedRect(wishCtx,frameX,frameY,frameW,frameH,28);wishCtx.stroke();drawPosterText(panelY)};
+    im.src=wishPhotoData;
+  }else{
+    wishCtx.fillStyle='rgba(255,245,220,.16)';roundedRect(wishCtx,frameX,frameY,frameW,frameH,28);wishCtx.fill();wishCtx.strokeStyle='#ffd45f';wishCtx.lineWidth=7;roundedRect(wishCtx,frameX,frameY,frameW,frameH,28);wishCtx.stroke();
+    wishCtx.fillStyle='#ffe8b0';wishCtx.font='900 100px Arial';wishCtx.textAlign='center';wishCtx.fillText('👤',frameX+frameW/2,frameY+205);drawPosterText(panelY);
+  }
+}
+function drawPosterText(panelY){
+  const W=1080,name=$('#wishName')?.value.trim()||'आपका नाम';
+  wishCtx.textAlign='left';wishCtx.fillStyle='#ffe7a2';wishCtx.font='800 32px Noto Sans Devanagari, sans-serif';wishCtx.fillText('सौजन्य से',90,1535);
+  wishCtx.fillStyle='#fff';wishCtx.font='900 55px Noto Sans Devanagari, sans-serif';wishCtx.fillText(name.slice(0,24),90,1615);
+  wishCtx.fillStyle='#ffd45f';wishCtx.font='800 34px Noto Sans Devanagari, sans-serif';wishCtx.fillText('श्री कोडमदेसर भैरूनाथ धाम',90,1680);
+  wishCtx.fillStyle='#fff';wishCtx.font='800 42px Noto Sans Devanagari, sans-serif';wishCtx.fillText('24–25 सितम्बर 2026',90,1750);
+  wishCtx.textAlign='center';wishCtx.fillStyle='#ffe7a2';wishCtx.font='900 42px Noto Sans Devanagari, sans-serif';wishCtx.fillText('जय श्री भैरूनाथ 🚩',W/2,1870);
+}
+if($('#wishPosterForm')){
+  $('#wishPosterForm').addEventListener('submit',e=>{e.preventDefault();wishGenerated=true;drawWishPoster();$('#wishPosterStatus').textContent='Poster तैयार है ❤️ नीचे reference-style preview देखें।';$('#posterGate').classList.add('show');});
+  $('#wishPhoto').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>8*1024*1024){$('#wishPosterStatus').textContent='फोटो अधिकतम 8MB रखें।';e.target.value='';return}const r=new FileReader();r.onload=()=>{wishPhotoData=r.result;$('#wishPhotoPreview').innerHTML='<img src="'+r.result+'" alt="आपकी फोटो">';if(wishGenerated)drawWishPoster()};r.readAsDataURL(f)});
+  $('#posterStyle')?.addEventListener('change',()=>wishGenerated&&drawWishPoster());
+  $('#posterFrame')?.addEventListener('change',()=>wishGenerated&&drawWishPoster());
+  $('#instagramConfirmBtn').addEventListener('click',()=>{if(!wishGenerated){$('#wishPosterStatus').textContent='पहले Poster तैयार करें।';return}wishFollowed=true;$('#posterGate').classList.add('confirmed');$('#downloadWishPoster').disabled=false;$('#shareWishPoster').disabled=false;$('#wishPosterStatus').textContent='धन्यवाद ❤️ अब HD Poster download कर सकते हैं।'});
+  $('#downloadWishPoster').addEventListener('click',()=>{if(!wishFollowed)return;const a=document.createElement('a');a.download='Kodamdesar-Bhairunath-Shubhkamna-Poster.png';a.href=wishCanvas.toDataURL('image/png',1);a.click()});
+  $('#shareWishPoster').addEventListener('click',async()=>{if(!wishFollowed)return;const text='कोडमदेसर भैरूनाथ मेला 2026 की हार्दिक शुभकामनाएं 🚩\n24–25 सितम्बर 2026\n'+location.href;window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')});
+}
 const target=new Date('2026-09-24T00:00:00+05:30').getTime();function countdown(){const d=Math.max(0,target-Date.now());$('#days').textContent=String(Math.floor(d/86400000)).padStart(2,'0');$('#hours').textContent=String(d%86400000/3600000|0).padStart(2,'0');$('#minutes').textContent=String(d%3600000/60000|0).padStart(2,'0');$('#seconds').textContent=String(d%60000/1000|0).padStart(2,'0')}countdown();setInterval(countdown,1000);
 const darkBtn=$('#darkModeBtn');if(darkBtn){darkBtn.addEventListener('click',()=>{document.body.classList.toggle('dark-mode');darkBtn.textContent=document.body.classList.contains('dark-mode')?'☀️':'🌙'})}
 const tickers=['24–25 सितम्बर 2026 • कोडमदेसर भैरूनाथ मेला','🚩 जय श्री भैरूनाथ • श्रद्धालु Photo/Video शेयर करें','🎨 Free Poster Maker से अपनी शुभकामना poster बनाएं','🙏 सेवा समिति में अपनी सेवा की जानकारी भेजें'];let ti=0;setInterval(()=>{const t=$('#tickerText');if(t){ti=(ti+1)%tickers.length;t.textContent=tickers[ti]}},4500);
