@@ -77,8 +77,10 @@ function render(){
     if(x.collection==='songs')
       body='<div class="admin-icon">🎵</div><div><b>'+esc(x.title)+'</b><p>'+esc(x.name)+' • '+label(x.category)+'</p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v='+esc(x.youtubeId)+'">YouTube खोलें</a></div>';
 
-    if(x.collection==='media')
-      body='<div class="admin-icon">'+(x.type==='video'?'🎥':'📸')+'</div><div><b>'+esc(x.title)+'</b><p>'+esc(x.name)+'</p><p>'+esc(x.caption||'')+'</p>'+(x.url?(x.type==='video'?'<video class="admin-preview" controls preload="metadata" src="'+safe(x.url)+'"></video>':'<img class="admin-preview" src="'+safe(x.url)+'" alt="Submitted photo">'):'')+'<p><a target="_blank" rel="noopener" href="'+safe(x.url)+'">Original खोलें</a></p></div>';
+    if(x.collection==='media'){
+      const view=driveViewUrl(x.url), preview=drivePreviewUrl(x.url);
+      body='<div class="admin-icon">'+(x.type==='video'?'🎥':'📸')+'</div><div><b>'+esc(x.title)+'</b><p>'+esc(x.name)+'</p><p>'+esc(x.caption||'')+'</p>'+(x.url?(x.type==='video'?'<div class="media-video-placeholder">🎥<br><a class="btn light" target="_blank" rel="noopener" href="'+view+'">वीडियो Drive में खोलें</a></div>':'<a target="_blank" rel="noopener" href="'+view+'"><img class="admin-preview" src="'+preview+'" alt="Submitted photo"></a>'):'')+'<p><a target="_blank" rel="noopener" href="'+view+'">📂 Original file खोलें</a></p></div>';
+    }
 
     if(x.collection==='seva')
       body='<div class="admin-icon">🚩</div><div><b>'+esc(x.name)+'</b><p>'+esc(x.type||'सेवा')+' • '+esc(x.location)+'</p><p>'+esc(x.time)+' • '+esc(x.phone)+'</p><p>'+esc(x.note||'')+'</p>'+(x.mediaUrl?(x.mediaType==='video'?'<video class="admin-preview" controls preload="metadata" src="'+safe(x.mediaUrl)+'"></video>':'<img class="admin-preview" src="'+safe(x.mediaUrl)+'" alt="Seva photo">'):'')+'</div>';
@@ -142,5 +144,8 @@ $('#posterForm').onsubmit=async e=>{
 };
 
 function label(c){return c==='bhajan'?'🙏 भजन':c==='padayatra'?'🚩 पदयात्रा गीत':'🪔 आरती'}
+function driveFileId(u){try{const s=String(u||'');const m=s.match(/[?&]id=([^&]+)/)||s.match(/\/d\/([^/]+)/);return m?m[1]:''}catch(e){return ''}}
+function drivePreviewUrl(u){const id=driveFileId(u);return id?'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1200':safe(u)}
+function driveViewUrl(u){const id=driveFileId(u);return id?'https://drive.google.com/file/d/'+encodeURIComponent(id)+'/view':safe(u)}
 function safe(u){try{const x=new URL(u);return ['http:','https:'].includes(x.protocol)?x.href:'#'}catch{return '#'}}
 function esc(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML}
