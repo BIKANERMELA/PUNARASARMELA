@@ -42,6 +42,29 @@
       .dm-live-note{max-width:800px;margin:18px auto 0;text-align:center;color:#8a6b58;font-size:13px}
 
 
+
+      /* Full side menu */
+      .dm-side-trigger{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:8700;width:50px;height:50px;border:1px solid rgba(242,207,121,.7);border-radius:50%;background:linear-gradient(135deg,#761b22,#a53b22);color:#ffe0a0;font-size:23px;font-weight:900;box-shadow:0 10px 28px rgba(70,10,14,.25);cursor:pointer}
+      .dm-side-overlay{position:fixed;inset:0;z-index:8800;background:rgba(25,5,8,.48);opacity:0;visibility:hidden;transition:.25s}
+      .dm-side-overlay.show{opacity:1;visibility:visible}
+      .dm-side-menu{position:fixed;top:0;left:0;bottom:0;z-index:8900;width:min(360px,88vw);background:linear-gradient(180deg,#fffaf2,#fff1dc);border-right:1px solid rgba(201,154,59,.35);box-shadow:18px 0 50px rgba(45,5,10,.24);transform:translateX(-105%);transition:transform .3s ease;overflow-y:auto}
+      .dm-side-menu.show{transform:translateX(0)}
+      .dm-side-head{padding:24px 20px 18px;background:linear-gradient(145deg,#5a1017,#8d2821);color:#fff;border-bottom:1px solid rgba(242,207,121,.45)}
+      .dm-side-head-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+      .dm-side-head strong{display:block;color:#ffe0a0;font-family:"Tiro Devanagari Sanskrit","Rozha One",serif;font-size:24px;line-height:1.2}
+      .dm-side-head small{display:block;margin-top:5px;color:#ffeeda}
+      .dm-side-close{width:42px;height:42px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:21px;cursor:pointer}
+      .dm-side-list{padding:12px}
+      .dm-side-list a{display:flex;align-items:center;gap:12px;padding:13px 12px;margin:4px 0;border-radius:14px;text-decoration:none;color:#5d2519;font-weight:850;border:1px solid transparent;transition:.2s}
+      .dm-side-list a:hover,.dm-side-list a:focus{background:#fffdf8;border-color:rgba(201,154,59,.35);color:#761b22;outline:none;transform:translateX(3px)}
+      .dm-side-list .dm-side-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:rgba(201,154,59,.13);font-size:20px;flex:none}
+      .dm-side-footer{padding:10px 20px 26px;text-align:center;color:#8a6b58;font-size:12px}
+      .dm-side-lock{overflow:hidden}
+      @media(max-width:650px){
+        .dm-side-trigger{left:12px;top:auto;bottom:82px;width:46px;height:46px;font-size:21px}
+        .dm-side-menu{width:min(340px,92vw)}
+      }
+
       /* Royal quick navigation + back to top */
       .royal-quick-nav{position:sticky;top:82px;z-index:8100;background:rgba(255,248,237,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,154,59,.28);box-shadow:0 5px 18px rgba(70,20,10,.07)}
       .royal-quick-inner{display:flex;align-items:center;gap:7px;min-height:48px;overflow-x:auto;scrollbar-width:none;padding-top:4px;padding-bottom:4px}
@@ -160,6 +183,77 @@
     anchor.parentNode.insertBefore(sec, anchor);
   };
 
+
+  const createSideMenu = () => {
+    if (document.getElementById('dmSideMenu')) return;
+
+    const trigger = document.createElement('button');
+    trigger.id = 'dmSideTrigger';
+    trigger.className = 'dm-side-trigger';
+    trigger.type = 'button';
+    trigger.setAttribute('aria-label','साइड मेनू खोलें');
+    trigger.setAttribute('aria-expanded','false');
+    trigger.innerHTML = '☰';
+
+    const overlay = document.createElement('div');
+    overlay.id = 'dmSideOverlay';
+    overlay.className = 'dm-side-overlay';
+    overlay.setAttribute('aria-hidden','true');
+
+    const menu = document.createElement('aside');
+    menu.id = 'dmSideMenu';
+    menu.className = 'dm-side-menu';
+    menu.setAttribute('aria-label','मेला मुख्य मेनू');
+    menu.innerHTML = `
+      <div class="dm-side-head">
+        <div class="dm-side-head-row">
+          <div>
+            <strong>🚩 मेला मेनू</strong>
+            <small>श्री कोडमदेसर भैरूनाथ मेला 2026</small>
+          </div>
+          <button class="dm-side-close" type="button" aria-label="मेनू बंद करें">✕</button>
+        </div>
+      </div>
+      <nav class="dm-side-list" aria-label="मेला सेक्शन">
+        <a href="#home"><span class="dm-side-icon">🏠</span><span>होम</span></a>
+        <a href="#darshan"><span class="dm-side-icon">🛕</span><span>दर्शन एवं मंदिर</span></a>
+        <a href="#padyatra"><span class="dm-side-icon">🚶‍♂️</span><span>पदयात्रा जानकारी</span></a>
+        <a href="#music"><span class="dm-side-icon">🎶</span><span>भजन और आरती</span></a>
+        <a href="#media"><span class="dm-side-icon">📸</span><span>मेला गैलरी</span></a>
+        <a href="#poster-maker"><span class="dm-side-icon">🖼️</span><span>फ्री पोस्टर मेकर</span></a>
+        <a href="#message"><span class="dm-side-icon">🚩</span><span>मेला शुभकामनाएं</span></a>
+        <a href="#route"><span class="dm-side-icon">📍</span><span>गूगल मैप रास्ता</span></a>
+        <a href="#seva"><span class="dm-side-icon">🤝</span><span>सेवा समिति और सहयोग</span></a>
+      </nav>
+      <div class="dm-side-footer">जय श्री भैरूनाथ 🙏 • जय बाबे री 🚩</div>`;
+
+    document.body.appendChild(trigger);
+    document.body.appendChild(overlay);
+    document.body.appendChild(menu);
+
+    const close = () => {
+      menu.classList.remove('show');
+      overlay.classList.remove('show');
+      trigger.setAttribute('aria-expanded','false');
+      document.body.classList.remove('dm-side-lock');
+    };
+    const open = () => {
+      menu.classList.add('show');
+      overlay.classList.add('show');
+      trigger.setAttribute('aria-expanded','true');
+      document.body.classList.add('dm-side-lock');
+      menu.querySelector('.dm-side-close')?.focus();
+    };
+
+    trigger.addEventListener('click', () => menu.classList.contains('show') ? close() : open());
+    overlay.addEventListener('click', close);
+    menu.querySelector('.dm-side-close').addEventListener('click', close);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && menu.classList.contains('show')) close();
+    });
+  };
+
   const createBottomNav = () => {
     if (document.getElementById('dmBottomNav')) return;
     const nav = document.createElement('nav');
@@ -234,6 +328,7 @@
     createIntro();
     insertJourney();
     insertLive();
+    createSideMenu();
     createBottomNav();
     createMiniPlayer();
     initQuickNavigation();
