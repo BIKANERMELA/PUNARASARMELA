@@ -17,7 +17,9 @@ const $=s=>document.querySelector(s);
 
 function safeDriveUrl(value){
   try{
-    const u=new URL(value.trim());
+    const raw=value.trim();
+    if(raw.length>500) return "";
+    const u=new URL(raw);
     return u.protocol==="https:" && u.hostname==="drive.google.com" ? u.href : "";
   }catch{return ""}
 }
