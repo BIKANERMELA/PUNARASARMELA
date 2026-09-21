@@ -54,7 +54,7 @@ async function submitFirebaseMedia(e){
       url=await getDownloadURL(snap.ref);
       if(bar)bar.style.width="100%";
     }
-    await addDoc(collection(db,"media"),{name,type,title,url:url||"",caption:(category?("["+category+"] "):"")+caption,storagePath,status:"pending",createdAt:serverTimestamp()});
+    await addDoc(collection(db,"media"),{name,type,title,url:url||"",caption:(category?("["+category+"] "):"")+caption,category,storagePath,status:"pending",createdAt:serverTimestamp()});
     form.reset();if(bar)bar.style.width="100%";
     status.textContent=f?"Photo/Video सफलतापूर्वक भेज दिया गया ❤️":"Google Drive link सफलतापूर्वक भेज दिया गया ❤️";
   }catch(err){
