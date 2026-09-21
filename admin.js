@@ -9,6 +9,7 @@ const ADMIN_EMAIL="jbn1jbn0101@gmail.com";
 const app=initializeApp(firebaseConfig),db=getFirestore(app),storage=getStorage(app),auth=getAuth(app),provider=new GoogleAuthProvider();
 const $=s=>document.querySelector(s);
 let allPending=[];
+let publishedMedia=[];
 let filter='all';
 
 function showError(e){
@@ -32,7 +33,7 @@ onAuthStateChanged(auth,user=>{
     $('#loginBtn').hidden=true;
     $('#logoutBtn').hidden=false;
     $('#adminMain').hidden=false;
-    listenPending()
+    listenPending(); listenPublishedMedia()
   }else{
     $('#authText').textContent='Authorized Google account से sign in करें।';
     $('#loginBtn').hidden=false;
@@ -41,6 +42,8 @@ onAuthStateChanged(auth,user=>{
   }
 });
 
+function listenPublishedMedia(){const q=query(collection(db,'media'),where('status','==','approved'));onSnapshot(q,s=>{publishedMedia=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));renderPublishedMedia()},e=>console.error('Published media:',e))}
+function renderPublishedMedia(){const box=$('#publishedMediaList');if(!box)return;box.innerHTML='';$('#publishedMediaCount').textContent=publishedMedia.length;if(!publishedMedia.length){box.innerHTML='<div class="empty-song">अभी website पर कोई approved Photo/Video नहीं है।</div>';return}publishedMedia.slice(0,60).forEach(x=>{const a=document.createElement('article');a.className='admin-item';const view=driveViewUrl(x.url),preview=drivePreviewUrl(x.url);a.innerHTML='<div class="admin-icon">'+(x.type==='video'?'🎥':'📸')+'</div><div><b>'+esc(x.title||'साझा कंटेंट')+'</b><p>'+esc(x.name||'श्रद्धालु')+' • '+esc(x.caption||'')+'</p>'+(x.type==='video'?'<a class="btn light" target="_blank" rel="noopener" href="'+view+'">🎥 वीडियो देखें</a>':'<a target="_blank" rel="noopener" href="'+view+'"><img class="admin-preview" src="'+preview+'" alt="Published photo"></a>')+'</div><div class="admin-actions"><button class="reject" data-hide-media="'+esc(x.id)+'">🌐 Website से हटाएँ</button></div>';box.append(a)})}
 function listenPending(){
   const collections=['songs','media','seva'];
   allPending=[];
@@ -92,6 +95,8 @@ function render(){
   })
 }
 
+async function hideMedia(id){try{await updateDoc(doc(db,'media',id),{status:'hidden',hiddenAt:serverTimestamp()})}catch(e){console.error(e);alert('Photo/Video website से हट नहीं पाया: '+e.message)}}
+
 async function change(x,status){
   try{
     if(status==='rejected'){
@@ -112,7 +117,7 @@ async function change(x,status){
   }
 }
 
-$('#adminMain').addEventListener('click',e=>{
+$('#adminMain').addEventListener('click',e=>{const hide=e.target.closest('[data-hide-media]');if(hide){hideMedia(hide.dataset.hideMedia);return}
   const b=e.target.closest('.admin-tabs button');
   if(b){
     filter=b.dataset.type;
