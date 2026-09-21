@@ -32,7 +32,7 @@ function safeDriveUrl(value){
 */
 document.addEventListener("submit",async event=>{
   const form=event.target;
-  if(form.id!=="mediaForm" && form.id!=="sevaForm") return;
+  if(form.id!=="mediaForm") return;
 
   event.preventDefault();
   event.stopImmediatePropagation();
