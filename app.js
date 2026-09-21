@@ -1,8 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import { getFirestore,collection,addDoc,query,where,orderBy,limit,onSnapshot,serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-import { getStorage,ref,uploadBytes,getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 const firebaseConfig={apiKey:"AIzaSyA9dEr5JvvGo-xQ-6llmV6rCt_5P258YR0",authDomain:"punarasarmela.firebaseapp.com",projectId:"punarasarmela",storageBucket:"punarasarmela.firebasestorage.app",messagingSenderId:"368252030672",appId:"1:368252030672:web:531a9c3307271819e698d5",measurementId:"G-YMC3Y69L6H"};
-const app=initializeApp(firebaseConfig); const db=getFirestore(app); const storage=getStorage(app); const $=s=>document.querySelector(s);
+const app=initializeApp(firebaseConfig); const db=getFirestore(app); const $=s=>document.querySelector(s);
 const INSTAGRAM_URL='https://www.instagram.com/';
 let galleryFilter='all';
 const POSTER_BASE_IMAGE='assets/kodamdesar-hero.svg';
