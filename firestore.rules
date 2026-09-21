@@ -60,6 +60,24 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    match /mediaLikes/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['mediaId','createdAt'])
+        && request.resource.data.mediaId is string
+        && request.resource.data.mediaId.size() > 0;
+      allow update, delete: if false;
+    }
+
+    match /mediaComments/{id} {
+      allow read: if resource.data.status == 'approved' || isAdmin();
+      allow create: if request.resource.data.keys().hasOnly(['mediaId','name','text','createdAt','status'])
+        && request.resource.data.mediaId is string
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 60
+        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 300
+        && request.resource.data.status == 'approved';
+      allow update, delete: if isAdmin();
+    }
+
     match /posters/{id} {
       allow read: if resource.data.status == 'approved' || isAdmin();
       allow create, update, delete: if isAdmin();
