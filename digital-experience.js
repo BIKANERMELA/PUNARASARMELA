@@ -7,7 +7,7 @@
     const s = document.createElement('style');
     s.id = 'digitalMelaStyles';
     s.textContent = `
-      .dm-intro{position:fixed;inset:0;z-index:12000;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,rgba(198,142,48,.18),transparent 28%),linear-gradient(145deg,#4b0d14,#7b1d22 52%,#a64a22);color:#fff;opacity:1;transition:opacity .45s ease}
+      .dm-intro-progress{width:min(320px,78%);height:5px;margin:20px auto 0;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.16);border:1px solid rgba(242,207,121,.22)}\n      .dm-intro-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#c75a19,#f2cf79);animation:dmProgress 2.5s linear forwards}@keyframes dmProgress{to{width:100%}}\n      .dm-intro{position:fixed;inset:0;z-index:12000;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,rgba(198,142,48,.18),transparent 28%),linear-gradient(145deg,#4b0d14,#7b1d22 52%,#a64a22);color:#fff;opacity:1;transition:opacity .45s ease}
       .dm-intro.hide{opacity:0;pointer-events:none}
       .dm-intro-card{width:min(92vw,560px);text-align:center;padding:34px 22px}
       .dm-intro-flag{font-size:58px;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25));animation:dmFlag 1.2s ease-in-out infinite alternate}
@@ -25,7 +25,7 @@
       .dm-journey-track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:1050px;margin:auto}
       .dm-journey-track:before{content:"";position:absolute;left:9%;right:9%;top:42px;height:2px;background:linear-gradient(90deg,#c75a19,#c99a3b,#761b22);opacity:.35}
       .dm-stop{position:relative;z-index:1;text-align:center;background:#fffdf8;border:1px solid rgba(201,154,59,.35);border-radius:22px;padding:18px 10px;min-height:140px;box-shadow:0 10px 28px rgba(93,38,20,.06);transition:.2s}
-      .dm-stop:hover{transform:translateY(-4px);border-color:#c99a3b}
+      .dm-stop:hover{transform:translateY(-6px);border-color:#c99a3b}
       .dm-stop b{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 10px;border-radius:50%;background:linear-gradient(135deg,#761b22,#b84b22);color:#ffe0a0;font-size:24px;border:2px solid #f2cf79}
       .dm-stop strong{display:block;color:#761b22;font-family:"Tiro Devanagari Sanskrit",serif;font-size:19px}
       .dm-stop small{display:block;color:#765f52;margin-top:4px;line-height:1.4}
@@ -96,7 +96,7 @@
     document.body.appendChild(el);
     const close = () => { el.classList.add('hide'); setTimeout(() => el.remove(), 500); };
     el.querySelector('.dm-intro-skip').addEventListener('click', close);
-    setTimeout(close, 2300);
+    setTimeout(close, 2500);
   };
 
   const insertJourney = () => {
