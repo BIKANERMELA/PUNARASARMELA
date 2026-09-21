@@ -15,7 +15,7 @@ function welcomeModal(){
   if($("#royalWelcomeModal"))return;
   const m=document.createElement("div");
   m.id="royalWelcomeModal";m.className="royal-welcome-modal";
-  m.innerHTML='<div class="royal-welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle"><button class="royal-modal-close" type="button" aria-label="बंद करें">✕</button><div class="welcome-flag">🚩</div><h2 id="welcomeTitle">श्री कोडमदेसर भैरूनाथ मेला 2026</h2><div class="welcome-divider"></div><p>जय श्री भैरूनाथ 🙏<br>मेले की Daily Reels, दर्शन अपडेट और Live जानकारी के लिए हमारे Official Instagram से जुड़ें।</p><div class="welcome-actions"><a class="btn instagram-btn" href="https://www.instagram.com/" target="_blank" rel="noopener">📸 Instagram पर फॉलो करें</a><button class="btn light welcome-close" type="button">वेबसाइट देखें</button></div></div>';
+  m.innerHTML='<div class="royal-welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle"><button class="royal-modal-close" type="button" aria-label="बंद करें">✕</button><div class="welcome-flag">🚩</div><h2 id="welcomeTitle">श्री कोडमदेसर भैरूनाथ मेला 2026</h2><div class="welcome-divider"></div><p>जय श्री भैरूनाथ 🙏<br>मेले की Daily Reels, दर्शन अपडेट और Live जानकारी के लिए हमारे Official Instagram से जुड़ें।</p><div class="welcome-actions"><a class="btn instagram-btn" href="https://www.instagram.com/bhaktbabaka5555/" target="_blank" rel="noopener">📸 Instagram पर फॉलो करें</a><button class="btn light welcome-close" type="button">वेबसाइट देखें</button></div></div>';
   document.body.append(m);
   const close=()=>{m.classList.remove("show");document.body.style.overflow=""};
   m.querySelector(".royal-modal-close").onclick=close;m.querySelector(".welcome-close").onclick=close;
