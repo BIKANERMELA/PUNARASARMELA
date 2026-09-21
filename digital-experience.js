@@ -220,7 +220,7 @@
         <a href="#padyatra"><span class="dm-side-icon">🚶‍♂️</span><span>पदयात्रा जानकारी</span></a>
         <a href="#music"><span class="dm-side-icon">🎶</span><span>भजन और आरती</span></a>
         <a href="#media"><span class="dm-side-icon">📸</span><span>मेला गैलरी</span></a>
-        <a href="#poster-maker"><span class="dm-side-icon">🖼️</span><span>फ्री पोस्टर मेकर</span></a>
+        <a href="#poster-maker"><span class="dm-side-icon">🖼️</span><span>1 क्लिक में अपनी फोटो के साथ बनाएं भैरूनाथ मेला स्पेशल पोस्टर! 🚩</span></a>
         <a href="#message"><span class="dm-side-icon">🚩</span><span>मेला शुभकामनाएं</span></a>
         <a href="#route"><span class="dm-side-icon">📍</span><span>गूगल मैप रास्ता</span></a>
         <a href="#seva"><span class="dm-side-icon">🤝</span><span>सेवा समिति और सहयोग</span></a>
