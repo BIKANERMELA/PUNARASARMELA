@@ -23,39 +23,137 @@ function roundedRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(
 const POSTER_MURTI_IMAGE=SITE_IMAGES.darshan;
 const POSTER_TORAN_IMAGE=SITE_IMAGES.toran;
 
-function drawWishPoster(){
+function loadPosterImage(src,allowCors=true){
+ return new Promise(resolve=>{
+  if(!src){resolve(null);return}
+  const img=new Image();
+  let settled=false;
+  const done=(value)=>{
+   if(settled)return;
+   settled=true;
+   clearTimeout(timer);
+   resolve(value);
+  };
+  const timer=setTimeout(()=>done(null),9000);
+  img.onload=()=>done(img);
+  img.onerror=()=>{
+   if(allowCors){
+    const retry=new Image();
+    retry.onload=()=>done(retry);
+    retry.onerror=()=>done(null);
+    retry.src=src;
+   }else done(null);
+  };
+  if(allowCors)img.crossOrigin='anonymous';
+  img.src=src;
+ });
+}
+
+async function drawWishPoster(){
  if(!wishCtx)return;
  const W=1080,H=1920,ps=$('#posterStyle')?.value||'classic';
  wishCtx.clearRect(0,0,W,H);
- const palette=ps==='royal'?['#21120a','#6b4515','#120a06']:ps==='minimal'?['#24100c','#8f2b1d','#160807']:['#5b0909','#a62b17','#2b0808'];
- const g=wishCtx.createLinearGradient(0,0,W,H);g.addColorStop(0,palette[0]);g.addColorStop(.48,palette[1]);g.addColorStop(1,palette[2]);
- wishCtx.fillStyle=g;wishCtx.fillRect(0,0,W,H);
- const imgMurti=new Image();imgMurti.crossOrigin='anonymous';
- imgMurti.onload=()=>{const imgToran=new Image();imgToran.crossOrigin='anonymous';imgToran.onload=()=>finishDrawingPoster(imgMurti,imgToran,ps);imgToran.onerror=()=>finishDrawingPoster(imgMurti,null,ps);imgToran.src=POSTER_TORAN_IMAGE};
- imgMurti.onerror=()=>finishDrawingPoster(null,null,ps);imgMurti.src=POSTER_MURTI_IMAGE;
+ drawPosterBackground(ps);
+ const [imgMurti,imgToran]=await Promise.all([
+  loadPosterImage(POSTER_MURTI_IMAGE,true).then(x=>x||loadPosterImage('assets/kodamdesar-bhairunath-original.jpg',false)),
+  loadPosterImage(POSTER_TORAN_IMAGE,true)
+ ]);
+ finishDrawingPoster(imgMurti,imgToran,ps);
 }
-function finishDrawingPoster(imgMurti,imgToran,ps){
- const W=1080,H=1920,palette=ps==='royal'?['#21120a','#6b4515','#120a06']:ps==='minimal'?['#24100c','#8f2b1d','#160807']:['#5b0909','#a62b17','#2b0808'];
- const g=wishCtx.createLinearGradient(0,0,W,H);g.addColorStop(0,palette[0]);g.addColorStop(.48,palette[1]);g.addColorStop(1,palette[2]);wishCtx.fillStyle=g;wishCtx.fillRect(0,0,W,H);
+
+function drawPosterBackground(ps){
+ const W=1080,H=1920;
+ const palette=ps==='royal'?['#21120a','#6b4515','#120a06']:ps==='minimal'?['#24100c','#8f2b1d','#160807']:['#5b0909','#a62b17','#2b0808'];
+ const g=wishCtx.createLinearGradient(0,0,W,H);
+ g.addColorStop(0,palette[0]);g.addColorStop(.48,palette[1]);g.addColorStop(1,palette[2]);
+ wishCtx.fillStyle=g;wishCtx.fillRect(0,0,W,H);
  wishCtx.fillStyle='rgba(255,195,75,.08)';wishCtx.fillRect(0,0,W,H);
  wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=8;roundedRect(wishCtx,30,30,W-60,H-60,32);wishCtx.stroke();
- wishCtx.textAlign='right';wishCtx.fillStyle='#ffe08a';wishCtx.font='bold 36px "Noto Sans Devanagari",sans-serif';wishCtx.fillText('🚩 जय श्री भैरूनाथ 🚩',W-60,100);
- wishCtx.fillStyle='#fffaf0';wishCtx.font='bold 52px "Noto Sans Devanagari",sans-serif';wishCtx.fillText('सभी बीकानेर वासियों को',W-60,170);
- wishCtx.fillStyle='#ffb21f';wishCtx.font='bold 64px "Noto Sans Devanagari",sans-serif';wishCtx.fillText('कोडमदेसर भैरूनाथ',W-60,250);
- wishCtx.fillStyle='#ffffff';wishCtx.font='bold 50px "Noto Sans Devanagari",sans-serif';wishCtx.fillText('मेला 2026 की हार्दिक शुभकामनाएं',W-60,320);
- wishCtx.fillStyle='rgba(60,8,8,.85)';roundedRect(wishCtx,520,360,500,75,20);wishCtx.fill();wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=2;roundedRect(wishCtx,520,360,500,75,20);wishCtx.stroke();
- wishCtx.textAlign='center';wishCtx.fillStyle='#fff5df';wishCtx.font='bold 32px "Noto Sans Devanagari",sans-serif';wishCtx.fillText('📅 24–25 सितम्बर 2026',770,410);
- const mx=60,my=80,mw=430,mh=540;wishCtx.save();roundedRect(wishCtx,mx,my,mw,mh,24);wishCtx.clip();
- if(imgMurti){const s=Math.max(mw/imgMurti.width,mh/imgMurti.height),nw=imgMurti.width*s,nh=imgMurti.height*s;wishCtx.drawImage(imgMurti,mx+(mw-nw)/2,my+(mh-nh)/2,nw,nh)}else{wishCtx.fillStyle='#300b0b';wishCtx.fillRect(mx,my,mw,mh)}wishCtx.restore();
- wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=6;roundedRect(wishCtx,mx,my,mw,mh,24);wishCtx.stroke();
- const tx=60,ty=645,tw=430,th=380;wishCtx.save();roundedRect(wishCtx,tx,ty,tw,th,24);wishCtx.clip();
- if(imgToran){const s=Math.max(tw/imgToran.width,th/imgToran.height),nw=imgToran.width*s,nh=imgToran.height*s;wishCtx.drawImage(imgToran,tx+(tw-nw)/2,ty+(th-nh)/2,nw,nh)}else{wishCtx.fillStyle='#4d0e15';wishCtx.fillRect(tx,ty,tw,th)}wishCtx.restore();
- wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=6;roundedRect(wishCtx,tx,ty,tw,th,24);wishCtx.stroke();
- const px=520,py=470,pw=500,ph=555;wishCtx.fillStyle='rgba(255,248,232,.12)';roundedRect(wishCtx,px,py,pw,ph,28);wishCtx.fill();wishCtx.strokeStyle='rgba(255,215,106,.4)';wishCtx.lineWidth=3;roundedRect(wishCtx,px,py,pw,ph,28);wishCtx.stroke();
- if(wishPhotoData){const im=new Image();im.onload=()=>{const imgX=px+25,imgY=py+25,imgW=pw-50,imgH=ph-120;wishCtx.save();roundedRect(wishCtx,imgX,imgY,imgW,imgH,20);wishCtx.clip();const s=Math.max(imgW/im.width,imgH/im.height),nw=im.width*s,nh=im.height*s;wishCtx.drawImage(im,imgX+(imgW-nw)/2,imgY+(imgH-nh)/2,nw,nh);wishCtx.restore();wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=5;roundedRect(wishCtx,imgX,imgY,imgW,imgH,20);wishCtx.stroke();drawUserFooterText(px,py,pw,ph)};im.src=wishPhotoData}else{wishCtx.fillStyle='#ffe09a';wishCtx.font='bold 32px "Noto Sans Devanagari",sans-serif';wishCtx.textAlign='center';wishCtx.fillText('👤 आपकी फोटो यहाँ दिखेगी',px+pw/2,py+ph/2-30);drawUserFooterText(px,py,pw,ph)}
- wishCtx.textAlign='center';wishCtx.fillStyle='#ffd76a';wishCtx.font='bold 38px "Noto Sans Devanagari",sans-serif';wishCtx.fillText('कोडमदेसर भैरूनाथ धाम • बीकानेर 🚩',W/2,1120);
- wishCtx.fillStyle='#fff8e8';wishCtx.font='28px Arial,sans-serif';wishCtx.fillText('@bhaktbabaka5555  |  Kodamdesar Mela 2026',W/2,1175);
 }
+
+function drawPosterImageContain(ctx,img,x,y,w,h,r){
+ if(!img)return false;
+ const s=Math.min(w/img.width,h/img.height);
+ const nw=img.width*s,nh=img.height*s;
+ const dx=x+(w-nw)/2,dy=y+(h-nh)/2;
+ ctx.save();
+ roundedRect(ctx,x,y,w,h,r);ctx.clip();
+ ctx.fillStyle='rgba(20,5,5,.22)';ctx.fillRect(x,y,w,h);
+ ctx.drawImage(img,dx,dy,nw,nh);
+ ctx.restore();
+ ctx.strokeStyle='#ffd76a';ctx.lineWidth=5;roundedRect(ctx,x,y,w,h,r);ctx.stroke();
+ return true;
+}
+
+function finishDrawingPoster(imgMurti,imgToran,ps){
+ const W=1080,H=1920;
+ drawPosterBackground(ps);
+
+ wishCtx.textAlign='center';
+ wishCtx.fillStyle='#ffe08a';wishCtx.font='bold 36px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('🚩 जय श्री भैरूनाथ 🚩',W/2,92);
+ wishCtx.fillStyle='#fffaf0';wishCtx.font='bold 50px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('सभी बीकानेर वासियों को',W/2,160);
+ wishCtx.fillStyle='#ffb21f';wishCtx.font='bold 64px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('कोडमदेसर भैरूनाथ',W/2,238);
+ wishCtx.fillStyle='#ffffff';wishCtx.font='bold 46px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('मेला 2026 की हार्दिक शुभकामनाएं',W/2,305);
+
+ wishCtx.fillStyle='rgba(60,8,8,.85)';
+ roundedRect(wishCtx,300,330,480,70,20);wishCtx.fill();
+ wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=2;roundedRect(wishCtx,300,330,480,70,20);wishCtx.stroke();
+ wishCtx.fillStyle='#fff5df';wishCtx.font='bold 31px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('📅 24–25 सितम्बर 2026',W/2,375);
+
+ const mx=55,my=425,mw=455,mh=570;
+ const tx=55,ty=1035,tw=455,th=385;
+ const px=555,py=425,pw=470,ph=995;
+
+ if(imgMurti){
+  drawPosterImageContain(wishCtx,imgMurti,mx,my,mw,mh,26);
+ }else{
+  wishCtx.fillStyle='rgba(60,8,8,.5)';roundedRect(wishCtx,mx,my,mw,mh,26);wishCtx.fill();
+  wishCtx.fillStyle='#ffe09a';wishCtx.font='bold 30px "Noto Sans Devanagari",sans-serif';
+  wishCtx.fillText('भैरूनाथ जी के दर्शन',mx+mw/2,my+mh/2);
+ }
+
+ if(imgToran){
+  drawPosterImageContain(wishCtx,imgToran,tx,ty,tw,th,26);
+ }else{
+  wishCtx.fillStyle='rgba(60,8,8,.5)';roundedRect(wishCtx,tx,ty,tw,th,26);wishCtx.fill();
+  wishCtx.fillStyle='#ffe09a';wishCtx.font='bold 30px "Noto Sans Devanagari",sans-serif';
+  wishCtx.fillText('तोरण द्वार',tx+tw/2,ty+th/2);
+ }
+
+ wishCtx.fillStyle='rgba(255,248,232,.12)';
+ roundedRect(wishCtx,px,py,pw,ph,28);wishCtx.fill();
+ wishCtx.strokeStyle='rgba(255,215,106,.45)';wishCtx.lineWidth=3;roundedRect(wishCtx,px,py,pw,ph,28);wishCtx.stroke();
+
+ const drawUserCard=()=>{
+  const imgX=px+24,imgY=py+24,imgW=pw-48,imgH=ph-135;
+  if(wishPhotoData){
+   const im=new Image();
+   im.onload=()=>{
+    drawPosterImageContain(wishCtx,im,imgX,imgY,imgW,imgH,22);
+    drawUserFooterText(px,py,pw,ph);
+   };
+   im.src=wishPhotoData;
+  }else{
+   wishCtx.fillStyle='#ffe09a';wishCtx.font='bold 30px "Noto Sans Devanagari",sans-serif';
+   wishCtx.fillText('👤 आपकी फोटो यहाँ दिखेगी',px+pw/2,py+ph/2);
+   drawUserFooterText(px,py,pw,ph);
+  }
+ };
+ drawUserCard();
+
+ wishCtx.fillStyle='#ffd76a';wishCtx.font='bold 38px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('कोडमदेसर भैरूनाथ धाम • बीकानेर 🚩',W/2,1510);
+ wishCtx.fillStyle='#fff8e8';wishCtx.font='28px Arial,sans-serif';
+ wishCtx.fillText('@bhaktbabaka5555  |  Kodamdesar Mela 2026',W/2,1565);
+ wishCtx.fillStyle='#ffe09a';wishCtx.font='bold 30px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('🙏 जय श्री भैरूनाथ 🙏',W/2,1810);
+}
+
 function drawUserFooterText(px,py,pw,ph){
  wishCtx.textAlign='center';const nameText=$('#wishName')?.value.trim()||'आपका नाम / दुकान';
  wishCtx.fillStyle='rgba(77,14,21,.92)';roundedRect(wishCtx,px+20,py+ph-85,pw-40,65,16);wishCtx.fill();wishCtx.strokeStyle='#ffd76a';wishCtx.lineWidth=3;roundedRect(wishCtx,px+20,py+ph-85,pw-40,65,16);wishCtx.stroke();
