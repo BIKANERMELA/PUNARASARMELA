@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#8b1e1e"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet"><meta name="description" content="श्री कोडमदेसर भैरूनाथ मेला 2026 — 24–25 सितम्बर 2026">
-<title>श्री कोडमदेसर भैरूनाथ मेला 2026</title><link rel="stylesheet" href="style.css?v=20260922-14">
+<title>श्री कोडमदेसर भैरूनाथ मेला 2026</title><link rel="stylesheet" href="style.css?v=20260922-15">
 </head>
 <body>
 <header class="hero" id="home">
 <nav class="nav wrap" aria-label="मुख्य नेविगेशन">
   <a class="royal-logo" href="#home"><span class="royal-flag">🚩</span><span>श्री कोडमदेसर</span></a>
   <div class="royal-nav-links">
-    <a href="#home">होम</a><a href="#darshan">दर्शन</a><a href="#padyatra">पदयात्रा</a><a href="#music">भजन-आरती</a><a href="#media">गैलरी</a>
+    <a href="#home">होम</a><a href="#darshan">दर्शन</a><a href="#padyatra">पदयात्रा</a><a href="#music">भजन-आरती</a><a href="#jaap">📿 डिजिटल जाप</a><a href="#media">गैलरी</a>
   </div>
   <a class="royal-wa" href="https://wa.me/?text=%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%80%20%E0%A4%95%E0%A5%8B%E0%A4%A1%E0%A4%AE%E0%A4%A6%E0%A5%87%E0%A4%B8%E0%A4%B0%20%E0%A4%AD%E0%A5%88%E0%A4%B0%E0%A5%82%E0%A4%A8%E0%A4%BE%E0%A4%A5%20%E0%A4%AE%E0%A5%87%E0%A4%B2%E0%A4%BE%202026%20%F0%9F%9A%A9" target="_blank" rel="noopener">💬 WhatsApp</a>
 </nav>
@@ -48,7 +48,7 @@
 <a href="#media" class="category-card"><b>📸</b><strong>Photo • Video</strong><small>Google Drive link से शेयर करें</small></a>
 <a href="#seva" class="category-card"><b>🙏</b><strong>सेवा समिति</strong><small>भंडारा, पानी, चिकित्सा आदि</small></a>
 <a href="#poster-maker" class="category-card"><b>🎨</b><strong>Free Poster Maker</strong><small>अपना नाम/फोटो लगाकर poster</small></a>
-<a href="#posters" class="category-card"><b>📢</b><strong>मेला पोस्टर</strong><small>शुभकामना और विशेष पोस्टर</small></a>
+<a href="#posters" class="category-card"><b>📢</b><strong>मेला पोस्टर</strong><small>शुभकामना और विशेष पोस्टर</small></a>\n<a href="#jaap" class="category-card"><b>📿</b><strong>डिजिटल जाप</strong><small>जय श्री भैरूनाथ जाप काउंटर</small></a>
 <a href="#message" class="category-card"><b>💬</b><strong>श्रद्धालु संदेश</strong><small>अपना संदेश साझा करें</small></a>
 <a href="#route" class="category-card"><b>📍</b><strong>Route / Map</strong><small>कोडमदेसर धाम का रास्ता</small></a>
 <a href="#business" class="category-card"><b>🤝</b><strong>Business / Sponsor</strong><small>व्यवसाय एवं सहयोग</small></a>
@@ -64,6 +64,8 @@
 <section id="posters" class="section poster-section"><div class="wrap"><div class="heading"><span>🚩 मेला संदेश</span><h2>मेले की हार्दिक शुभकामनाएं</h2><p>Admin द्वारा प्रकाशित विशेष पोस्टर यहाँ दिखाई देंगे।</p></div><div id="posterList" class="poster-list"><div class="poster-placeholder">🚩 जल्द ही विशेष मेला पोस्टर यहाँ दिखाई देगा।</div></div></div></section>
 
 <section id="poster-maker" class="section poster-maker-section"><div class="wrap"><div class="heading"><span>🎨 Free Poster Maker</span><h2>अपनी शुभकामना पोस्टर बनाएं</h2><p>अपना नाम और चाहें तो अपनी फोटो लगाएं — सुंदर 9:16 पोस्टर तैयार करें।</p></div><div class="poster-maker-grid"><form id="wishPosterForm" class="form-card poster-maker-form" onsubmit="return false;"><input id="wishName" maxlength="80" placeholder="आपका नाम / दुकान का नाम" required><label class="file-label">📸 अपनी फोटो लगाएं (वैकल्पिक)<input id="wishPhoto" type="file" accept="image/jpeg,image/png,image/webp"></label><div class="poster-options"><select id="posterStyle" aria-label="Poster style"><option value="classic">🚩 Classic Kesariya</option><option value="royal">👑 Royal Gold</option><option value="minimal">✨ Clean Premium</option></select><select id="posterFrame" aria-label="Photo frame"><option value="gold">🟡 Golden Frame</option><option value="round">⭕ Round Frame</option><option value="simple">▢ Simple Frame</option></select></div><small class="upload-help">फोटो सिर्फ आपके poster में लगेगी; public gallery में नहीं जाएगी।</small><div id="wishPhotoPreview" class="wish-photo-preview">👤<span>अपनी फोटो यहाँ दिखाई देगी</span></div><button class="btn" type="submit">✨ Poster तैयार करें</button><small id="wishPosterStatus"></small></form><div class="poster-preview-wrap"><div class="poster-preview-head"><b>Poster Preview</b><span>9:16 • HD</span></div><canvas id="wishPosterCanvas" width="1080" height="1920" aria-label="शुभकामना पोस्टर preview"></canvas><div id="posterGate" class="poster-gate"><div><strong>📲 Free Download</strong><p>Poster download करने के लिए Instagram पर हमें Follow करें।</p><a id="instagramFollowBtn" class="btn light" href="https://www.instagram.com/bhaktbabaka5555/" target="_blank" rel="noopener">📸 Instagram Follow करें</a><button id="instagramConfirmBtn" class="btn" type="button">✅ मैंने Follow कर लिया</button></div></div><div class="poster-actions"><button id="downloadWishPoster" class="btn" type="button" disabled>⬇️ HD Poster Download</button><button id="shareWishPoster" class="btn light" type="button" disabled>🟢 WhatsApp पर Share</button></div></div></div></div></section>
+
+<section id="jaap" class="section section-jaap"><div class="wrap"><div class="heading"><span>📿 डिजिटल जाप काउंटर</span><h2>श्री भैरूनाथ डिजिटल जाप</h2><p>श्रद्धा भाव से बटन दबाकर <strong>“जय श्री भैरूनाथ”</strong> का डिजिटल जाप करें।</p></div><div class="jaap-card"><div class="jaap-mantra-title">🚩 ॐ श्री भैरूनाथाय नमः 🚩</div><div class="jaap-display" id="jaapCount">0</div><div class="jaap-btn-container"><button class="jaap-count-btn" id="jaapBtn" type="button">🙏 जाप करें <span>(+1)</span></button><button class="jaap-reset-btn" id="jaapReset" type="button">रीसेट करें</button></div><div class="jaap-note">आपकी जाप संख्या इसी device/browser में सुरक्षित रहेगी। जय बाबे री! ❤️</div></div></div></section>
 
 <section id="music" class="section music-section"><div class="wrap"><div class="heading"><span>🎵 मेला भजन संग्रह</span><h2>भजन • पदयात्रा गीत • आरती</h2><p>YouTube का लिंक पेस्ट करें और अपना पसंदीदा गीत मेले के भजन संग्रह में साझा करें।</p></div><div class="music-player"><div class="now-playing"><div class="vinyl">♪</div><div><b id="nowTitle">कोई भजन नहीं चल रहा</b><small id="nowCategory">नीचे से अपना पसंदीदा गीत चुनें</small></div></div><div id="youtubeBox" class="youtube-box"><div class="youtube-placeholder">🎵<br><span>भजन चुनकर ▶ चलाएँ</span></div></div><div class="player-note">▶ Play दबाते ही ऊपर का ऊँट-गाड़ी दृश्य चलने लगेगा 🚩</div></div><div class="music-tabs" id="musicTabs"><button class="active" data-cat="all">सभी</button><button data-cat="bhajan">🙏 भजन</button><button data-cat="padayatra">🚩 पदयात्रा गीत</button><button data-cat="aarti">🪔 आरती</button></div><div id="songsList" class="song-list"></div><form id="songForm" class="form-card song-form"><h3>🎶 YouTube गीत भेजें</h3><input id="songName" maxlength="60" placeholder="आपका नाम" required><select id="songCategory" required><option value="bhajan">🙏 भजन</option><option value="padayatra">🚩 पदयात्रा गीत</option><option value="aarti">🪔 आरती</option></select><input id="songTitle" maxlength="100" placeholder="गीत / भजन का नाम" required><input id="songUrl" type="url" maxlength="500" placeholder="YouTube लिंक यहाँ पेस्ट करें" required><button class="btn" type="submit">📤 गीत साझा करें</button><small id="songStatus"></small></form></div></section>
 
@@ -82,4 +84,18 @@
 <footer><div class="wrap">कोडमदेसर भैरूनाथ मेला 2026 • जय श्री भैरूनाथ 🙏 • <a href="admin.html">Admin</a></div></footer>
 <script type="module" src="app.js?v=20260922-14"></script>
 <script type="module" src="royal-ui.js?v=20260922-4"></script>
+<script>
+(function(){
+  const KEY='bhairavJaapCount';
+  const display=document.getElementById('jaapCount');
+  const btn=document.getElementById('jaapBtn');
+  const reset=document.getElementById('jaapReset');
+  if(!display||!btn||!reset)return;
+  let count=Math.max(0,parseInt(localStorage.getItem(KEY)||'0',10)||0);
+  const render=()=>{display.textContent=count.toLocaleString('en-IN');};
+  render();
+  btn.addEventListener('click',()=>{count+=1;localStorage.setItem(KEY,String(count));render();btn.classList.remove('jaap-pop');void btn.offsetWidth;btn.classList.add('jaap-pop');});
+  reset.addEventListener('click',()=>{if(confirm('क्या आप अपना जाप काउंटर रीसेट करना चाहते हैं?')){count=0;localStorage.setItem(KEY,'0');render();}});
+})();
+</script>
 </body></html>
