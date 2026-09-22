@@ -360,3 +360,12 @@ body{
   font-weight:700;
   letter-spacing:.01em;
 }
+
+
+/* SONG PLAYER + CAMEL CART DIRECTION FIX */
+.youtube-box{position:relative}
+.youtube-sound-btn{position:absolute;right:12px;bottom:12px;z-index:4;border:1px solid rgba(255,216,107,.65);background:rgba(53,11,13,.88);color:#ffe19a;border-radius:999px;padding:10px 15px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.28)}
+.youtube-sound-btn.on{background:#761b22;color:#fff}
+/* 🐪 emoji faces left; flip only the camel so it travels naturally toward the right. */
+.nostalgia-cart-icon{display:inline-block;transform:scaleX(-1)}
+.nostalgia-cart-body{display:inline-block}
