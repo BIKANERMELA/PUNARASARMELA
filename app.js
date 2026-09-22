@@ -105,8 +105,35 @@ $('#driveFallbackOpen')?.addEventListener('click',()=>openDriveUploadModal('medi
 function youtubeId(raw){try{const u=new URL(raw.trim());if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0].slice(0,11);if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v')?.slice(0,11)||'';if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2]?.slice(0,11)||'';if(u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]?.slice(0,11)||''}}catch(e){}return ''}
 let activeCat='all';let songs=[];function catLabel(c){return c==='bhajan'?'🙏 भजन':c==='padayatra'?'🚩 पदयात्रा गीत':'🪔 आरती'}
 function renderSongs(){const box=$('#songsList');box.innerHTML='';const arr=songs.filter(x=>activeCat==='all'||x.category===activeCat);if(!arr.length){box.innerHTML='<div class="empty-song">अभी इस श्रेणी में कोई गीत नहीं है। पहला गीत आप भेजें 🎵</div>';return}arr.forEach(x=>{const a=document.createElement('article');a.className='song-card';a.innerHTML='<div><span class="song-cat">'+catLabel(x.category)+'</span><h3>'+esc(x.title||'मेला भजन')+'</h3><small>🚩 '+esc(x.name||'श्रद्धालु')+'</small></div><button class="play-song" data-id="'+esc(x.youtubeId)+'" data-title="'+esc(x.title||'मेला भजन')+'" data-cat="'+esc(catLabel(x.category))+'">▶ चलाएँ</button>';box.append(a)})}
-function playSong(id,title,cat){if(!id)return;$('#nowTitle').textContent=title;$('#nowCategory').textContent=cat;$('#camelCart').classList.add('moving');$('#youtubeBox').innerHTML='<iframe src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0" title="'+esc(title)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';document.querySelector('#music').scrollIntoView({behavior:'smooth',block:'start'})}
+function stopNostalgiaScene(){
+  document.body.classList.remove('nostalgia-playing');
+  $('#camelCart')?.classList.remove('moving');
+  $('#nostalgiaScene')?.classList.remove('active');
+}
+function startNostalgiaScene(title,cat){
+  let scene=$('#nostalgiaScene');
+  if(!scene){
+    scene=document.createElement('div');
+    scene.id='nostalgiaScene';
+    scene.className='nostalgia-scene';
+    scene.innerHTML='<div class="nostalgia-sky"></div><div class="nostalgia-sun"></div><div class="nostalgia-dunes"></div><div class="nostalgia-stars">✦　·　✧　·　✦</div><div class="nostalgia-village"><span>🏕️</span><span>🏕️</span><span>🪔</span></div><div class="nostalgia-road"></div><div class="nostalgia-cart"><span class="nostalgia-dhוואजा">🚩</span><span class="nostalgia-cart-icon">🐪</span><span class="nostalgia-cart-body">🛞</span></div><div class="nostalgia-caption"><b>पुरानी यादें • मेला • भक्ति</b><small></small></div>';
+    document.body.append(scene);
+  }
+  scene.querySelector('.nostalgia-caption small').textContent=(cat||'🎵 मेला भजन')+' • '+(title||'स्मृतियों का गीत');
+  scene.classList.add('active');
+  document.body.classList.add('nostalgia-playing');
+}
+function playSong(id,title,cat){
+  if(!id)return;
+  $('#nowTitle').textContent=title;
+  $('#nowCategory').textContent=cat;
+  startNostalgiaScene(title,cat);
+  $('#camelCart')?.classList.add('moving');
+  $('#youtubeBox').innerHTML='<iframe src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0" title="'+esc(title)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  document.querySelector('#music').scrollIntoView({behavior:'smooth',block:'start'});
+}
 $('#musicTabs').addEventListener('click',e=>{const b=e.target.closest('button[data-cat]');if(!b)return;activeCat=b.dataset.cat;document.querySelectorAll('#musicTabs button').forEach(x=>x.classList.toggle('active',x===b));renderSongs()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopNostalgiaScene()});
 $('#songsList').addEventListener('click',e=>{const b=e.target.closest('.play-song');if(b)playSong(b.dataset.id,b.dataset.title,b.dataset.cat)});
 $('#songForm').addEventListener('submit',async e=>{e.preventDefault();const s=$('#songStatus'),id=youtubeId($('#songUrl').value);s.textContent='';if(!id||id.length!==11){s.textContent='सही YouTube वीडियो लिंक डालें।';return}s.textContent='गीत भेजा जा रहा है…';try{await addDoc(collection(db,'songs'),{name:$('#songName').value.trim(),category:$('#songCategory').value,title:$('#songTitle').value.trim(),youtubeId:id,status:'pending',createdAt:serverTimestamp()});e.target.reset();s.textContent='गीत सफलतापूर्वक भेज दिया गया ❤️'}catch(err){console.error(err);s.textContent='अभी गीत नहीं भेजा जा सका।'}});
 const sq=query(collection(db,'songs'),where('status','==','approved'));onSnapshot(sq,s=>{songs=[];s.forEach(d=>songs.push(d.data()));songs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));songs=songs.slice(0,60);renderSongs()},err=>{console.error('Songs:',err);$('#songsList').innerHTML='<div class="empty-song">गीत अभी लोड नहीं हो पाए।</div>'});
