@@ -172,3 +172,72 @@ footer{background:#4b0d14!important;color:#f8dfb3!important}
 .jaap-note{margin-top:15px;font-size:13px;color:#765f52}
 @keyframes jaapPop{0%{transform:scale(1)}45%{transform:scale(1.08)}100%{transform:scale(1)}}
 @media(max-width:520px){.jaap-card{padding:27px 16px;border-radius:22px}.jaap-mantra-title{font-size:22px}.jaap-count-btn{width:100%;padding:17px 22px}.jaap-reset-btn{width:100%}}
+
+
+/* =========================================================
+   KODAMDESAR 2026 — FEATURE ZONE DIFFERENTIATION
+   ========================================================= */
+.help-strip{position:relative;background:linear-gradient(100deg,#fff8e9,#fff0d8 48%,#f8e7d6);border-bottom:1px solid #ead1b0;overflow:hidden}
+.help-strip:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 50%,#ffb21f22,transparent 28%),radial-gradient(circle at 90% 50%,#8b1e1e14,transparent 30%);pointer-events:none}
+.help-strip-inner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:18px 0}
+.help-strip-inner>div{display:grid;gap:3px}
+.help-strip-inner span{font-size:13px;font-weight:900;color:#9a2c16;letter-spacing:.5px}
+.help-strip-inner strong{font-size:18px;color:#3d1710}
+.help-strip-inner small{color:#735e54}
+.help-dm-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 19px;border-radius:999px;background:#8b1e1e;color:#fff;text-decoration:none;font-weight:900;box-shadow:0 10px 25px #6d171726;white-space:nowrap}
+.help-dm-btn:hover{transform:translateY(-1px)}
+
+.feature-seva{background:linear-gradient(180deg,#f4f0e7 0%,#fffaf4 100%);border-bottom:1px solid #e5d7c4;position:relative}
+.feature-seva:before,.feature-poster-maker:before,.feature-media:before,.feature-posters:before,.feature-music:before{content:"";display:block;width:76px;height:4px;border-radius:99px;margin:0 auto 18px;background:#b38a42}
+.feature-seva .form-card{border:1px solid #d8c7a9;box-shadow:0 18px 45px #4b35130f}
+.feature-seva .heading span{color:#6d6a2a}
+.feature-seva .heading h2{font-family:"Rozha One","Noto Sans Devanagari",sans-serif}
+
+.feature-poster-maker{background:radial-gradient(circle at 15% 20%,#c9943d18,transparent 28%),linear-gradient(135deg,#3a100c 0%,#651b16 52%,#2c0909 100%);color:#fff;border-block:1px solid #9a612f}
+.feature-poster-maker .heading h2{color:#fff}
+.feature-poster-maker .heading p{color:#f1d8bb}
+.feature-poster-maker .heading span{color:#ffd26b}
+.feature-poster-maker .poster-maker-form{background:#fffaf4;color:#2b1712;border-color:#d6a34e}
+.feature-poster-maker .poster-preview-wrap{background:#210806;border:1px solid #a96f2b}
+.feature-poster-maker .poster-preview-head{color:#ffe1a0}
+.feature-poster-maker .upload-help{color:#765d4d}
+
+.feature-media{background:linear-gradient(135deg,#f7efe3 0%,#fffaf4 42%,#efe1ce 100%);position:relative;border-block:1px solid #dfccb2}
+.feature-media .heading span{color:#7a4a1f}
+.feature-media .heading h2{font-family:"Rozha One","Noto Sans Devanagari",sans-serif}
+.feature-media .royal-upload-card{background:#fff;border-color:#d8c1a3;box-shadow:0 20px 50px #5d321512}
+.feature-media .royal-upload-info{background:linear-gradient(145deg,#fff7e9,#f4e6d3);border:1px solid #d9c09a}
+
+.feature-posters{background:linear-gradient(180deg,#fff4df,#f6e4cc 55%,#fffaf4);border-block:1px solid #e4c7a0}
+.feature-posters .heading span{color:#9a5b13}
+.feature-posters .poster-card{border-color:#d8b777;box-shadow:0 18px 45px #6d421514}
+.feature-posters .poster-placeholder{background:#fff9ef;border-color:#d9bb83}
+
+.feature-music{background:linear-gradient(180deg,#250908 0%,#4a110d 38%,#fff8ee 38%,#fffaf4 100%);padding-top:82px;position:relative}
+.feature-music .heading{color:#fff}
+.feature-music .heading h2{font-family:"Rozha One","Noto Sans Devanagari",sans-serif}
+.feature-music .heading p{color:#ead8ca}
+.feature-music .music-player{border:1px solid #a97835;box-shadow:0 24px 65px #21080645}
+.feature-music .music-tabs{margin-top:28px}
+.feature-music .song-form{border-color:#dec5a7}
+
+.feature-directory{background:radial-gradient(circle at 50% 0,#ffcf5c18,transparent 30%),#f4eadc;border-block:1px solid #dec9ad}
+.feature-directory .category-card{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.feature-directory .category-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px #4b180c16;border-color:#c99b53}
+
+.royal-feature-showcase{background:linear-gradient(90deg,#3a100c,#8b1e1e,#3a100c);border-block:1px solid #b98235}
+.royal-feature-showcase .feature-pill{background:#ffffff0d;border-color:#ffffff2b;color:#fff}
+.royal-quick-widget{box-shadow:0 18px 40px #4b180c14}
+.notice-ticker{background:#2f0b09;color:#ffe2a3}
+.kodam-visual{background:#1d0706}
+.royal-core{background:linear-gradient(180deg,#fffaf4,#f5e6d2)}
+
+.floating-actions{z-index:30}
+.float-dm{display:grid;place-items:center;text-decoration:none;background:linear-gradient(135deg,#833ab4,#fd1d1d 55%,#fcb045);color:#fff;width:52px;height:52px;border-radius:50%;box-shadow:0 12px 30px #4b180c30;font-size:22px}
+.float-dm:hover{transform:translateY(-2px)}
+
+@media(max-width:760px){
+  .help-strip-inner{align-items:stretch;flex-direction:column;padding:15px 0}
+  .help-dm-btn{width:100%}
+  .feature-music{background:linear-gradient(180deg,#250908 0%,#4a110d 31%,#fff8ee 31%,#fffaf4 100%)}
+}
