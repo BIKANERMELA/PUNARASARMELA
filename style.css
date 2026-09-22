@@ -290,3 +290,52 @@ footer{background:#4b0d14!important;color:#f8dfb3!important}
 .poster-preview-wrap{
   overflow:visible;
 }
+
+
+/* FINAL ROYAL POSTER PREVIEW POLISH */
+.poster-maker-section{
+  background:
+    radial-gradient(circle at 18% 18%,rgba(170,52,28,.10),transparent 30%),
+    linear-gradient(180deg,#fff0dc 0%,#fffaf4 58%,#f8ead8 100%);
+}
+.poster-maker-grid{align-items:start}
+.poster-preview-wrap{
+  max-width:430px;
+  padding:14px;
+  background:linear-gradient(145deg,#fffaf1,#f7e8d2);
+  border:2px solid #d7ad60;
+  border-radius:28px;
+  box-shadow:0 22px 55px rgba(75,24,12,.18),inset 0 0 0 1px rgba(255,255,255,.8);
+}
+.poster-preview-head{
+  padding:4px 8px 13px;
+  color:#6c2618;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.poster-preview-head span{
+  color:#9a6b28;
+  font-weight:700;
+}
+.poster-preview-wrap canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:9/16;
+  border-radius:18px;
+  background:#300b0b;
+  box-shadow:0 10px 30px rgba(45,6,6,.22);
+}
+.poster-actions{
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.poster-actions .btn{
+  min-height:48px;
+  border-radius:14px;
+}
+@media(max-width:650px){
+  .poster-preview-wrap{max-width:100%;padding:10px;border-radius:22px}
+  .poster-preview-wrap canvas{border-radius:15px}
+  .poster-actions{grid-template-columns:1fr}
+}
