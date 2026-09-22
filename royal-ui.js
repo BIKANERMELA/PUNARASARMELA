@@ -77,9 +77,13 @@ async function submitFirebaseMedia(e){
     status.textContent=f?"Photo/Video सफलतापूर्वक भेज दिया गया ❤️":"Google Drive link सफलतापूर्वक भेज दिया गया ❤️";
   }catch(err){
     console.error(err);
-    if(err?.code==="storage/quota-exceeded"||err?.code==="storage/unauthorized"||String(err?.message||"").includes("402")||String(err?.message||"").includes("Blaze")){
-      status.innerHTML="Firebase Storage अभी उपलब्ध नहीं है। <a href="https://script.google.com/macros/s/AKfycbz0YMuppBaJeoFUJjpH6MYlJ0uh_LAQBGLb0Keho0Gi1AX8dBix4ltSLCIO-4ltPqAJ/exec" target="_blank" rel="noopener">Google Drive Direct Upload</a> इस्तेमाल करें।";
-    }else status.textContent="Upload नहीं हो पाया: "+(err?.message||"कृपया दोबारा कोशिश करें।");
+    const msg=String(err?.message||"");
+    const storageIssue=err?.code==="storage/quota-exceeded"||err?.code==="storage/unauthorized"||msg.includes("402")||msg.includes("Blaze")||msg.toLowerCase().includes("failed to fetch")||msg.toLowerCase().includes("network");
+    if(storageIssue){
+      status.innerHTML='Firebase Storage अभी उपलब्ध नहीं है। <a href="#" id="royalDriveFallback">Google Drive Direct Upload खोलें</a>।';
+      document.getElementById("royalDriveFallback")?.addEventListener("click",ev=>{ev.preventDefault();window.__openDriveUploadModal?.("media")});
+      window.__openDriveUploadModal?.("media");
+    }else status.textContent="Upload नहीं हो पाया: "+(msg||"कृपया दोबारा कोशिश करें।");
     if(bar)bar.style.width="0%";
   }
 }
