@@ -152,3 +152,19 @@ if(wishPosterForm){
  $('#downloadWishPoster')?.addEventListener('click',()=>{if(!wishGenerated)return;try{const a=document.createElement('a');a.download='Kodamdesar-Bhairunath-Mela-2026.png';a.href=wishCanvas.toDataURL('image/png',1);a.click()}catch(err){const st=$('#wishPosterStatus');if(st)st.textContent='Poster तैयार है, लेकिन original reference image की वजह से browser download block कर रहा है।';console.error('Poster download:',err)}});
  $('#shareWishPoster')?.addEventListener('click',async()=>{if(!wishGenerated)return;try{const data=wishCanvas.toDataURL('image/png',.95);const blob=await(await fetch(data)).blob();const file=new File([blob],'Kodamdesar-Bhairunath-Mela-2026.png',{type:'image/png'});if(navigator.share&&navigator.canShare?.({files:[file]}))await navigator.share({title:'कोडमदेसर भैरूनाथ मेला 2026',text:'🚩 जय श्री भैरूनाथ',files:[file]});else window.open('https://wa.me/?text='+encodeURIComponent('🚩 कोडमदेसर भैरूनाथ मेला 2026 • जय श्री भैरूनाथ'),'_blank')}catch(err){console.error('Poster share:',err)}});
 }
+
+
+/* DIGITAL JAAP COUNTER — local device only */
+(()=>{
+  const display=document.querySelector('#jaapCount');
+  const btn=document.querySelector('#jaapBtn');
+  const reset=document.querySelector('#jaapReset');
+  if(!display||!btn)return;
+  let count=Number(localStorage.getItem('bhairavJaapCount')||0);
+  if(!Number.isFinite(count)||count<0)count=0;
+  count=Math.floor(count);
+  const render=()=>{display.textContent=count.toLocaleString('en-IN');};
+  render();
+  btn.addEventListener('click',()=>{count++;localStorage.setItem('bhairavJaapCount',String(count));render();btn.animate?.([{transform:'scale(.95)'},{transform:'scale(1)'}],{duration:120,easing:'ease-out'});});
+  reset?.addEventListener('click',()=>{if(confirm('क्या आप जाप काउंटर रीसेट करना चाहते हैं?')){count=0;localStorage.setItem('bhairavJaapCount','0');render();}});
+})();
