@@ -241,3 +241,52 @@ footer{background:#4b0d14!important;color:#f8dfb3!important}
   .help-dm-btn{width:100%}
   .feature-music{background:linear-gradient(180deg,#250908 0%,#4a110d 31%,#fff8ee 31%,#fffaf4 100%)}
 }
+
+
+/* POSTER + GALLERY IMAGE FIX
+   Keep complete images visible; never crop source artwork. */
+.media-preview,
+.poster-card img,
+.section-reference-image,
+.admin-preview,
+.kodam-visual-wrap img{
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#220707;
+}
+
+.media-preview{
+  aspect-ratio:4/3 !important;
+  min-height:180px;
+  max-height:520px;
+}
+
+.poster-card img{
+  aspect-ratio:auto !important;
+  width:100%;
+  height:auto;
+  max-height:680px;
+  object-fit:contain !important;
+}
+
+.section-reference-image{
+  max-height:620px !important;
+  height:auto !important;
+}
+
+.admin-preview{
+  max-height:420px;
+}
+
+.poster-preview-wrap canvas{
+  width:100% !important;
+  height:auto !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  object-position:center !important;
+}
+
+/* Poster preview stays centered and never gets vertically clipped. */
+.poster-preview-wrap{
+  overflow:visible;
+}
