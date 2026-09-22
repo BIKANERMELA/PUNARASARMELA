@@ -271,7 +271,27 @@ function playSong(id,title,cat){
   $('#nowCategory').textContent=cat;
   startNostalgiaScene(title,cat);
   $('#camelCart')?.classList.add('moving');
-  $('#youtubeBox').innerHTML='<iframe src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0" title="'+esc(title)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+
+  const box=$('#youtubeBox');
+  const origin=encodeURIComponent(location.origin);
+  box.innerHTML='<iframe id="ytPlayer" src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&origin='+origin+'" title="'+esc(title)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><button type="button" class="youtube-sound-btn" id="youtubeSoundBtn">🔊 आवाज़ चालू करें</button>';
+
+  const frame=$('#ytPlayer');
+  const soundBtn=$('#youtubeSoundBtn');
+  const send=(func,args=[])=>frame?.contentWindow?.postMessage(JSON.stringify({event:'command',func,args}), '*');
+  frame?.addEventListener('load',()=>{
+    setTimeout(()=>send('playVideo'),120);
+    setTimeout(()=>send('unMute'),350);
+    setTimeout(()=>send('setVolume',[100]),400);
+  });
+  soundBtn?.addEventListener('click',()=>{
+    send('unMute');
+    send('setVolume',[100]);
+    send('playVideo');
+    soundBtn.textContent='🔊 आवाज़ चालू है';
+    soundBtn.classList.add('on');
+  });
+
   document.querySelector('#music').scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('#musicTabs').addEventListener('click',e=>{const b=e.target.closest('button[data-cat]');if(!b)return;activeCat=b.dataset.cat;document.querySelectorAll('#musicTabs button').forEach(x=>x.classList.toggle('active',x===b));renderSongs()});
