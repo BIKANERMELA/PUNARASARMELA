@@ -149,22 +149,24 @@
 
 <script>
 (function(){
-  function openJaapFromHash(){
-    if(window.location.hash !== '#jaap') return;
+  function openJaapDirect(){
+    var p=new URLSearchParams(window.location.search);
+    var direct=p.get('jaap')==='1' || window.location.hash==='#jaap';
+    if(!direct)return;
     var el=document.getElementById('jaap');
-    if(!el) return;
-    setTimeout(function(){
-      el.scrollIntoView({behavior:'auto',block:'start'});
-      setTimeout(function(){ el.scrollIntoView({behavior:'auto',block:'start'}); }, 350);
-    }, 50);
+    if(!el)return;
+    var body=document.body;
+    var first=body.firstElementChild;
+    if(first && el!==first) body.insertBefore(el,first);
+    el.classList.add('jaap-direct-open');
+    setTimeout(function(){window.scrollTo(0,0);},50);
   }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', openJaapFromHash, {once:true});
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',openJaapDirect,{once:true});
   }else{
-    openJaapFromHash();
+    openJaapDirect();
   }
-  window.addEventListener('load', openJaapFromHash, {once:true});
-  window.addEventListener('hashchange', openJaapFromHash);
+  window.addEventListener('load',openJaapDirect,{once:true});
 })();
 </script>
 </body></html>
