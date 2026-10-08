@@ -1,0 +1,58 @@
+name: Apply Karni Mata original images
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[karni-patched]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch website assets and poster
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('app.js')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              "const SITE_IMAGES={hero:'https://upload.wikimedia.org/wikipedia/commons/9/91/Entrance_of_the_Karni_Mata_temple_at_Deshnoke_near_Bikaner.jpg',darshan:'https://upload.wikimedia.org/wikipedia/commons/3/3d/Karni_mata_idol.jpg',toran:'https://upload.wikimedia.org/wikipedia/commons/9/91/Entrance_of_the_Karni_Mata_temple_at_Deshnoke_near_Bikaner.jpg',poster:'https://upload.wikimedia.org/wikipedia/commons/3/3d/Karni_mata_idol.jpg'}; // Wikimedia Commons: CC BY 2.0 / CC BY-SA 3.0",
+              "const SITE_IMAGES={hero:'assets/karni-temple-original.jpg.avif',darshan:'assets/karni-mata-murti-original.jpg.png',toran:'assets/karni-temple-original.jpg.avif',poster:'assets/karni-mata-murti-original.jpg.png'};"
+          )
+          s = s.replace("loadPosterImage(POSTER_MURTI_IMAGE,true).then(x=>x||loadPosterImage('assets/kodamdesar-bhairunath-original.jpg',false))", "loadPosterImage(POSTER_MURTI_IMAGE,false)")
+          s = s.replace("loadPosterImage(POSTER_TORAN_IMAGE,true)", "loadPosterImage(POSTER_TORAN_IMAGE,false)")
+          s = s.replace("wishCtx.globalAlpha=.92;", "wishCtx.globalAlpha=1;")
+          s = s.replace("wishCtx.globalAlpha=.90;", "wishCtx.globalAlpha=1;")
+          s = s.replace("const s=Math.max(mw/imgMurti.width,mh/imgMurti.height);", "const s=Math.min(mw/imgMurti.width,mh/imgMurti.height);")
+          s = s.replace("wishCtx.fillText('सभी बीकानेर वासियों को',W-70,195);", "wishCtx.fillText('आ गई है...',W-70,195);")
+          s = s.replace("wishCtx.fillText('करणी माता देशनोक',W-70,285);", "wishCtx.fillText('देशनोक करणी माता',W-70,285);")
+          s = s.replace("wishCtx.fillText('मेला 2026 की हार्दिक शुभकामनाएं',W-70,365);", "wishCtx.fillText('मेला 2026 की Website',W-70,365);")
+          s = s.replace("wishCtx.fillText('📅 11–20 अक्टूबर 2026',795,462);", "wishCtx.fillText('📅 11 अक्टूबर 2026 से',795,462);")
+          s = s.replace("wishCtx.fillText('📅 11–20 अक्टूबर 2026',795,462);", "wishCtx.fillText('📅 11 अक्टूबर 2026 से',795,462);")
+          s = s.replace("wishCtx.fillText('करणी माता देशनोक धाम • बीकानेर 🚩',W/2,1250);", "wishCtx.fillText('आ गई है देशनोक करणी माता मेला 2026 की Website',W/2,1250);")
+          s = s.replace("wishCtx.fillText('@bhaktbabaka5555  |  Karni Mata Deshnok Mela 2026',W/2,1310);", "wishCtx.fillText('🔗 Link Bio में है  •  @bhaktbabaka5555',W/2,1310);")
+          s = s.replace("wishCtx.fillText('11–20 अक्टूबर 2026 • करणी माता देशनोक मेला',W/2,1310);", "wishCtx.fillText('11 अक्टूबर 2026 से • @bhaktbabaka5555',W/2,1310);")
+          s = s.replace("const tickers=['11–20 अक्टूबर 2026 • करणी माता देशनोक मेला'", "const tickers=['11 अक्टूबर 2026 से • करणी माता देशनोक मेला'")
+          s = s.replace("text:'11–20 अक्टूबर 2026 • जय श्री करणी माता 🚩'", "text:'11 अक्टूबर 2026 से • जय माँ करणी री 🚩'")
+          s = s.replace("'🚩 जय श्री करणी माता • श्रद्धालु Photo/Video शेयर करें'", "'🚩 जय माँ करणी री • श्रद्धालु Photo/Video शेयर करें'")
+          p.write_text(s, encoding='utf-8')
+
+          h = Path('index.html')
+          s = h.read_text(encoding='utf-8')
+          s = s.replace("url('https://upload.wikimedia.org/wikipedia/commons/9/91/Entrance_of_the_Karni_Mata_temple_at_Deshnoke_near_Bikaner.jpg')", "url('assets/karni-temple-original.jpg.avif')")
+          s = s.replace("श्री देशनोक<br>करणी माता मेला 2026", "आ गई है<br>देशनोक करणी माता मेला 2026 की Website")
+          s = s.replace("<p>अश्विन नवरात्रि • जय माँ करणी री 🙏🚩</p>", "<p>11 अक्टूबर 2026 से • जय माँ करणी री 🙏🚩</p>")
+          h.write_text(s, encoding='utf-8')
+
+          Path('.github/workflows/karni-image-patch.yml').unlink()
+      - name: Commit final website
+        run: |
+          git config user.name "BIKANERMELA"
+          git config user.email "jbn1jbn0101@gmail.com"
+          git add app.js index.html .github/workflows/karni-image-patch.yml
+          git commit -m "Apply Karni Mata original images and poster text [karni-patched]"
+          git push
