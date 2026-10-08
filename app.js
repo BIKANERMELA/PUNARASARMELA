@@ -3,7 +3,7 @@ import { getFirestore,collection,addDoc,query,where,orderBy,limit,onSnapshot,ser
 const firebaseConfig={apiKey:"AIzaSyA9dEr5JvvGo-xQ-6llmV6rCt_5P258YR0",authDomain:"punarasarmela.firebaseapp.com",projectId:"punarasarmela",storageBucket:"punarasarmela.firebasestorage.app",messagingSenderId:"368252030672",appId:"1:368252030672:web:531a9c3307271819e698d5",measurementId:"G-YMC3Y69L6H"};
 const app=initializeApp(firebaseConfig); const db=getFirestore(app); const $=s=>document.querySelector(s);
 const INSTAGRAM_URL='https://www.instagram.com/bhaktbabaka5555/';
-const SITE_IMAGES={hero:'https://drive.google.com/thumbnail?id=1cJOiDSAvkK-UddEKVYM6SH8gcBGNw94a&sz=w2000',darshan:'https://drive.google.com/thumbnail?id=1mbbQ3vQW7xatLUdvAStCxrsH-Emi6eGQ&sz=w2000',toran:'https://drive.google.com/thumbnail?id=1GFXHXpUJAm1Zep4AJ0ixYGg74w5CqHVI&sz=w2000',poster:'https://drive.google.com/thumbnail?id=169km1j5fE9acB6Z-03qtaIyhunKffCaD&sz=w2000'};
+const SITE_IMAGES={hero:'https://upload.wikimedia.org/wikipedia/commons/9/91/Entrance_of_the_Karni_Mata_temple_at_Deshnoke_near_Bikaner.jpg',darshan:'https://upload.wikimedia.org/wikipedia/commons/3/3d/Karni_mata_idol.jpg',toran:'https://upload.wikimedia.org/wikipedia/commons/9/91/Entrance_of_the_Karni_Mata_temple_at_Deshnoke_near_Bikaner.jpg',poster:'https://upload.wikimedia.org/wikipedia/commons/3/3d/Karni_mata_idol.jpg'}; // Wikimedia Commons: CC BY 2.0 / CC BY-SA 3.0
 let galleryFilter='all';
 const POSTER_BASE_IMAGE=SITE_IMAGES.poster;
 const posterStyles={classic:['#5b0909','#a62b17','#2b0808'],royal:['#21120a','#6b4515','#120a06'],minimal:['#3b1712','#b85a2b','#24100c']};
