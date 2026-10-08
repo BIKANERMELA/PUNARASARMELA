@@ -369,3 +369,40 @@ body{
 /* 🐪 emoji faces left; flip only the camel so it travels naturally toward the right. */
 .nostalgia-cart-icon{display:inline-block;transform:scaleX(-1)}
 .nostalgia-cart-body{display:inline-block}
+
+
+/* MA KARANI PREMIUM MUSIC PLAYER */
+.feature-music{background:radial-gradient(circle at 50% 0%,#fff1cf 0%,#fff8ee 32%,#fffaf4 72%);position:relative;overflow:hidden}
+.feature-music:before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;left:-220px;top:180px;background:#f3b83f18;filter:blur(4px)}
+.music-heading{position:relative}
+.royal-music-player{position:relative;isolation:isolate;max-width:940px;margin:0 auto;background:linear-gradient(145deg,#210607,#4e0e12 52%,#260708);border:1px solid #d9a84e;border-radius:32px;padding:20px;box-shadow:0 28px 70px #4b180c30,inset 0 1px #ffd97944;color:#fff;overflow:hidden}
+.music-glow{position:absolute;width:430px;height:430px;border-radius:50%;right:-160px;top:-180px;background:#f7b93e20;filter:blur(8px);z-index:-1}
+.player-topbar,.player-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}
+.live-pill{display:inline-flex;align-items:center;gap:7px;background:#ffffff12;border:1px solid #ffd56a55;border-radius:999px;padding:7px 12px;color:#ffe0a0;font-weight:800}
+.live-pill i{width:8px;height:8px;border-radius:50%;background:#ffb21f;box-shadow:0 0 12px #ffb21f;animation:musicPulse 1.2s infinite}
+.player-location{color:#f7dca6}
+@keyframes musicPulse{50%{opacity:.35;transform:scale(.8)}}
+.royal-now-playing{padding:22px 6px 18px;display:flex;align-items:center;gap:18px}
+.album-art{width:82px;height:82px;flex:0 0 82px;border-radius:50%;position:relative;display:grid;place-items:center;background:radial-gradient(circle,#ffd76c 0 10%,#5d1517 11% 33%,#e0a640 34% 37%,#240607 38% 100%);box-shadow:0 0 0 3px #e5b75766,0 12px 30px #0007;animation:albumSpin 10s linear infinite}
+.album-ring{position:absolute;inset:9px;border:1px dashed #ffd97999;border-radius:50%}
+.album-symbol{font-size:28px}.album-label{position:absolute;bottom:-8px;right:-7px;background:#f2b73e;color:#4a130b;font-size:10px;font-weight:900;border-radius:99px;padding:3px 7px;border:2px solid #3a0a0d}
+@keyframes albumSpin{to{transform:rotate(360deg)}}
+.now-copy{min-width:0;flex:1}.now-copy small{display:block;color:#d8a35d;font-weight:800;font-size:12px}.now-copy b{display:block;font-size:clamp(20px,3vw,27px);margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.now-copy span{display:block;color:#e8cfa9;font-size:14px}
+.player-blessing{display:flex;flex-direction:column;align-items:center;color:#ffd66b;font-size:25px}.player-blessing span{font-size:11px;white-space:nowrap;margin-top:4px}
+.mini-eq{height:20px;display:flex;align-items:end;gap:3px;margin-top:7px}.mini-eq i{display:block;width:4px;border-radius:4px;background:#f2b73e;animation:eq 1s ease-in-out infinite alternate}.mini-eq i:nth-child(1){height:8px}.mini-eq i:nth-child(2){height:16px;animation-delay:.2s}.mini-eq i:nth-child(3){height:11px;animation-delay:.4s}.mini-eq i:nth-child(4){height:18px;animation-delay:.1s}.mini-eq i:nth-child(5){height:9px;animation-delay:.3s}.mini-eq i:nth-child(6){height:14px;animation-delay:.5s}@keyframes eq{to{transform:scaleY(.45);opacity:.55}}
+.royal-youtube-box{aspect-ratio:16/9;border:1px solid #ffd56a44;border-radius:22px;background:#100303;box-shadow:inset 0 0 35px #0008;position:relative}
+.royal-youtube-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.royal-youtube-box .youtube-sound-btn{bottom:14px;right:14px;background:#4f1015dd;border-color:#ffd56a88;color:#ffe5a7;backdrop-filter:blur(8px)}
+.youtube-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:#ffe3a1}.youtube-placeholder .play-orb{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd25d,#e99b20);color:#54100d;font-size:26px;box-shadow:0 0 0 9px #ffd56a18,0 12px 30px #0005}.youtube-placeholder strong{font-size:19px}.youtube-placeholder span{font-size:13px;color:#cdb494}
+.player-bottom{padding:12px 5px 1px;color:#cba77b}.player-bottom span:last-child{color:#f5d98f;font-weight:700}
+.royal-music-tabs{margin:28px auto 18px}.royal-music-tabs button{transition:.2s transform,.2s box-shadow}.royal-music-tabs button:hover{transform:translateY(-2px);box-shadow:0 8px 18px #4b180c16}
+.playlist-title{max-width:940px;margin:0 auto 13px;display:flex;align-items:center;gap:12px;padding:15px 18px;background:#fff;border:1px solid #eadfd6;border-radius:18px;box-shadow:0 10px 28px #4b180c0b}
+.playlist-title>span{font-size:25px}.playlist-title b{display:block;font-size:18px;color:#6e1b16}.playlist-title small{display:block;color:#8a7066;margin-top:2px}.playlist-title em{margin-left:auto;font-style:normal;background:#fff0d4;color:#8b1e1e;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:900}
+.royal-song-list{max-width:940px}
+.royal-song-list .song-card{position:relative;overflow:hidden;padding:16px 18px 16px 14px;border-radius:20px;transition:.2s transform,.2s box-shadow,.2s border-color}
+.royal-song-list .song-card:before{content:"";width:4px;position:absolute;left:0;top:0;bottom:0;background:linear-gradient(#f5c34e,#8b1e1e)}
+.royal-song-list .song-card:hover{transform:translateY(-2px);box-shadow:0 15px 30px #4b180c14;border-color:#e0bc76}
+.song-card-main{display:flex;align-items:center;gap:13px;min-width:0}.song-number{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#fff0d4;color:#8b1e1e;font-weight:900;flex:0 0 40px}.song-meta{min-width:0}.song-meta h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.song-card.playing{border-color:#dcae4b;background:linear-gradient(90deg,#fff8e9,#fff)}
+.royal-song-form{max-width:940px;margin-top:28px;border-radius:24px;background:linear-gradient(145deg,#fff,#fff8ee);border-color:#e8d2ad}
+.song-form-head{display:flex;gap:12px;align-items:center}.song-form-head>span{font-size:35px}.song-form-head h3{margin:0}.song-form-head p{margin:3px 0 0;color:#80675c;font-size:13px}
+@media(max-width:650px){.royal-music-player{padding:13px;border-radius:24px}.royal-now-playing{padding:17px 4px}.album-art{width:65px;height:65px;flex-basis:65px}.album-symbol{font-size:22px}.player-blessing{display:none}.player-bottom{font-size:11px}.playlist-title{padding:13px}.playlist-title em{padding:6px 9px}.song-card-main{gap:9px}.song-number{width:34px;height:34px;flex-basis:34px}.royal-song-list .song-card{padding:14px 13px}.song-meta h3{font-size:17px}.royal-youtube-box{aspect-ratio:16/10}}
