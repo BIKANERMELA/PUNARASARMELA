@@ -187,7 +187,14 @@ window.__openDriveUploadModal=openDriveUploadModal;
 $('#sevaPhotoUploadBtn')?.addEventListener('click',()=>openDriveUploadModal('seva'));
 $('#driveFallbackOpen')?.addEventListener('click',()=>openDriveUploadModal('media'));
 function youtubeId(raw){try{const u=new URL(raw.trim());if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0].slice(0,11);if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v')?.slice(0,11)||'';if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2]?.slice(0,11)||'';if(u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]?.slice(0,11)||''}}catch(e){}return ''}
-let activeCat='all';let songs=[];function catLabel(c){return c==='bhajan'?'🙏 भजन':c==='padayatra'?'🚩 पदयात्रा गीत':'🪔 आरती'}
+let activeCat='all';const featuredSongs=[
+ {youtubeId:'QUtYetF02GU',category:'bhajan',title:'देशाणे की याद आवे',name:'MKS Rajasthani • Pankaj Lawnda'},
+ {youtubeId:'ymO2fr_brBI',category:'bhajan',title:'थाने याद करां हर बार',name:'Kuldeep Rajsthani'},
+ {youtubeId:'XmlDqRjGKBI',category:'bhajan',title:'श्री करणी माता चालीसा',name:'करणी माता भक्ति'},
+ {youtubeId:'xuvnnSnZ37Q',category:'aarti',title:'माँ करणी देशनोक आरती',name:'माँ करणी दर्शन'}
+];
+let songs=[...featuredSongs];
+function catLabel(c){return c==='bhajan'?'🙏 भजन':c==='padayatra'?'🚩 पदयात्रा गीत':'🪔 आरती'}
 function renderSongs(){const box=$('#songsList');box.innerHTML='';const arr=songs.filter(x=>activeCat==='all'||x.category===activeCat);const count=$('#songCount');if(count)count.textContent=arr.length+' गीत';if(!arr.length){box.innerHTML='<div class="empty-song">अभी इस श्रेणी में कोई गीत नहीं है। पहला गीत आप भेजें 🎵</div>';return}arr.forEach((x,i)=>{const a=document.createElement('article');a.className='song-card';a.innerHTML='<div class="song-card-main"><span class="song-number">'+String(i+1).padStart(2,'0')+'</span><div class="song-meta"><span class="song-cat">'+catLabel(x.category)+'</span><h3>'+esc(x.title||'मेला भजन')+'</h3><small>🚩 '+esc(x.name||'श्रद्धालु')+'</small></div></div><button class="play-song" data-id="'+esc(x.youtubeId)+'" data-title="'+esc(x.title||'मेला भजन')+'" data-cat="'+esc(catLabel(x.category))+'">▶ सुनें</button>';box.append(a)})}
 function stopNostalgiaScene(){
   document.body.classList.remove('nostalgia-playing');
@@ -240,7 +247,7 @@ $('#musicTabs').addEventListener('click',e=>{const b=e.target.closest('button[da
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopNostalgiaScene()});
 $('#songsList').addEventListener('click',e=>{const b=e.target.closest('.play-song');if(b)playSong(b.dataset.id,b.dataset.title,b.dataset.cat)});
 $('#songForm').addEventListener('submit',async e=>{e.preventDefault();const s=$('#songStatus'),id=youtubeId($('#songUrl').value);s.textContent='';if(!id||id.length!==11){s.textContent='सही YouTube वीडियो लिंक डालें।';return}s.textContent='गीत भेजा जा रहा है…';try{await addDoc(collection(db,'songs'),{name:$('#songName').value.trim(),category:$('#songCategory').value,title:$('#songTitle').value.trim(),youtubeId:id,status:'pending',createdAt:serverTimestamp()});e.target.reset();s.textContent='गीत सफलतापूर्वक भेज दिया गया ❤️'}catch(err){console.error(err);s.textContent='अभी गीत नहीं भेजा जा सका।'}});
-const sq=query(collection(db,'songs'),where('status','==','approved'));onSnapshot(sq,s=>{songs=[];s.forEach(d=>songs.push(d.data()));songs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));songs=songs.slice(0,60);renderSongs()},err=>{console.error('Songs:',err);$('#songsList').innerHTML='<div class="empty-song">गीत अभी लोड नहीं हो पाए।</div>'});
+const sq=query(collection(db,'songs'),where('status','==','approved'));onSnapshot(sq,s=>{songs=[...featuredSongs];s.forEach(d=>songs.push(d.data()));songs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));const featuredIds=new Set(featuredSongs.map(x=>x.youtubeId));songs=[...featuredSongs,...songs.filter(x=>!featuredIds.has(x.youtubeId))].slice(0,60);renderSongs()},err=>{console.error('Songs:',err);songs=[...featuredSongs];renderSongs()});
 $('#galleryFilters')?.addEventListener('click',e=>{const b=e.target.closest('button[data-filter]');if(!b)return;galleryFilter=b.dataset.filter;document.querySelectorAll('#galleryFilters button').forEach(x=>x.classList.toggle('active',x===b));renderMedia()});
 function driveFileId(u){try{const s=String(u||'');const m=s.match(/[?&]id=([^&]+)/)||s.match(/\/d\/([^/]+)/);return m?m[1]:''}catch(e){return ''}}
 function drivePreviewUrl(u){const id=driveFileId(u);return id?'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1600':safeUrl(u)}
