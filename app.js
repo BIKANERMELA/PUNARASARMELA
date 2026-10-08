@@ -128,7 +128,7 @@ function drawMergedPosterCanvas(imgMurti,imgToran){
  wishCtx.textAlign='right';
  wishCtx.fillStyle='#ffe2a0';
  wishCtx.font='bold 42px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText('🚩 जय श्री करणी माता 🚩',W-70,120);
+ wishCtx.fillText('🚩 जय माँ करणी री 🚩',W-70,120);
 
  wishCtx.fillStyle='#fff8ed';
  wishCtx.font='bold 50px "Noto Sans Devanagari",sans-serif';
