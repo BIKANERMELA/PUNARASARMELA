@@ -71,125 +71,78 @@ async function drawWishPoster(){
 
 function drawMergedPosterCanvas(imgMurti,imgToran){
  const W=1080,H=1920;
+ // Premium Maa Karni Mata mela poster — 9:16
+ const bg=wishCtx.createLinearGradient(0,0,0,H);
+ bg.addColorStop(0,'#240609'); bg.addColorStop(.38,'#6e171d'); bg.addColorStop(.72,'#3b0a0d'); bg.addColorStop(1,'#160304');
+ wishCtx.fillStyle=bg; wishCtx.fillRect(0,0,W,H);
 
- wishCtx.strokeStyle='#f2cf79';
- wishCtx.lineWidth=12;
- roundedRect(wishCtx,30,30,W-60,H-60,32);
- wishCtx.stroke();
- wishCtx.strokeStyle='rgba(118,27,34,0.8)';
- wishCtx.lineWidth=4;
- roundedRect(wishCtx,42,42,W-84,H-84,24);
- wishCtx.stroke();
+ // festive glow
+ const glow=wishCtx.createRadialGradient(540,420,40,540,420,620);
+ glow.addColorStop(0,'rgba(255,196,65,.28)'); glow.addColorStop(1,'rgba(255,196,65,0)');
+ wishCtx.fillStyle=glow; wishCtx.fillRect(0,0,W,H);
 
- if(imgMurti){
-  const mx=50,my=80,mw=490,mh=620;
-  wishCtx.save();
-  wishCtx.globalAlpha=1;
-  const s=Math.min(mw/imgMurti.width,mh/imgMurti.height);
-  const nw=imgMurti.width*s,nh=imgMurti.height*s;
-  wishCtx.drawImage(imgMurti,mx+(mw-nw)/2,my+(mh-nh)/2,nw,nh);
-  wishCtx.restore();
+ wishCtx.strokeStyle='#f4cf70'; wishCtx.lineWidth=10; roundedRect(wishCtx,28,28,W-56,H-56,34); wishCtx.stroke();
+ wishCtx.strokeStyle='rgba(255,224,150,.45)'; wishCtx.lineWidth=2; roundedRect(wishCtx,45,45,W-90,H-90,25); wishCtx.stroke();
 
-  const mGrad=wishCtx.createLinearGradient(mx,my+mh-120,mx,my+mh);
-  mGrad.addColorStop(0,'rgba(48,11,11,0)');
-  mGrad.addColorStop(1,'rgba(48,11,11,.95)');
-  wishCtx.fillStyle=mGrad;
-  wishCtx.fillRect(mx,my+mh-120,mw,120);
- }
-
- if(imgToran){
-  const tx=50,ty=720,tw=490,th=430;
-  wishCtx.save();
-  wishCtx.globalAlpha=1;
-  const s=Math.min(tw/imgToran.width,th/imgToran.height);
-  const nw=imgToran.width*s,nh=imgToran.height*s;
-  wishCtx.drawImage(imgToran,tx+(tw-nw)/2,ty+(th-nh)/2,nw,nh);
-  wishCtx.restore();
-
-  const tGrad=wishCtx.createLinearGradient(tx,ty,tx,ty+80);
-  tGrad.addColorStop(0,'rgba(48,11,11,.9)');
-  tGrad.addColorStop(1,'rgba(48,11,11,0)');
-  wishCtx.fillStyle=tGrad;
-  wishCtx.fillRect(tx,ty,tw,80);
- }
-
- const divGrad=wishCtx.createLinearGradient(560,80,560,1180);
- divGrad.addColorStop(0,'rgba(242,207,121,0)');
- divGrad.addColorStop(.2,'rgba(242,207,121,.6)');
- divGrad.addColorStop(.8,'rgba(242,207,121,.6)');
- divGrad.addColorStop(1,'rgba(242,207,121,0)');
- wishCtx.strokeStyle=divGrad;
- wishCtx.lineWidth=3;
- wishCtx.beginPath();
- wishCtx.moveTo(560,80);
- wishCtx.lineTo(560,1180);
- wishCtx.stroke();
-
- wishCtx.textAlign='right';
- wishCtx.fillStyle='#ffe2a0';
- wishCtx.font='bold 42px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText('🚩 जय माँ करणी री 🚩',W-70,120);
-
- wishCtx.fillStyle='#fff8ed';
- wishCtx.font='bold 50px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText('आ गई है...',W-70,195);
-
- wishCtx.fillStyle='#ffb21f';
- wishCtx.font='bold 66px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText('देशनोक करणी माता',W-70,285);
-
- wishCtx.fillStyle='#ffffff';
- wishCtx.font='bold 48px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText('मेला 2026 की Website',W-70,365);
-
- wishCtx.fillStyle='rgba(60,8,8,.95)';
- roundedRect(wishCtx,580,415,430,70,16);
- wishCtx.fill();
- wishCtx.strokeStyle='#f2cf79';
- wishCtx.lineWidth=2;
- roundedRect(wishCtx,580,415,430,70,16);
- wishCtx.stroke();
  wishCtx.textAlign='center';
- wishCtx.fillStyle='#ffe2a0';
- wishCtx.font='bold 32px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText('📅 11 अक्टूबर 2026 से',795,462);
+ wishCtx.fillStyle='#ffe7a7'; wishCtx.font='bold 32px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('🚩 जय माँ करणी री 🚩',W/2,105);
+ wishCtx.fillStyle='#fffaf0'; wishCtx.font='bold 56px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('माँ करणी माता',W/2,175);
+ wishCtx.fillStyle='#ffd05b'; wishCtx.font='bold 76px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('देशनोक मेला 2026',W/2,260);
 
- const px=580,py=510,pw=430,ph=580;
- const userCardBg=wishCtx.createRadialGradient(px+pw/2,py+ph/2,50,px+pw/2,py+ph/2,300);
- userCardBg.addColorStop(0,'rgba(215,140,50,.25)');
- userCardBg.addColorStop(1,'rgba(48,11,11,.6)');
- wishCtx.fillStyle=userCardBg;
- roundedRect(wishCtx,px,py,pw,ph,24);
- wishCtx.fill();
- wishCtx.strokeStyle='#f2cf79';
- wishCtx.lineWidth=3;
- roundedRect(wishCtx,px,py,pw,ph,24);
- wishCtx.stroke();
+ // dates badge
+ wishCtx.fillStyle='rgba(34,5,7,.82)'; roundedRect(wishCtx,285,292,510,76,38); wishCtx.fill();
+ wishCtx.strokeStyle='#f3c65c'; wishCtx.lineWidth=2; roundedRect(wishCtx,285,292,510,76,38); wishCtx.stroke();
+ wishCtx.fillStyle='#ffe8b0'; wishCtx.font='bold 32px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('📅 11–20 अक्टूबर 2026',W/2,342);
+
+ // Murti hero — preserve original image
+ if(imgMurti){
+  const x=55,y=395,w=475,h=665;
+  wishCtx.save(); roundedRect(wishCtx,x,y,w,h,28); wishCtx.clip();
+  const sc=Math.max(w/imgMurti.width,h/imgMurti.height);
+  const nw=imgMurti.width*sc,nh=imgMurti.height*sc;
+  wishCtx.drawImage(imgMurti,x+(w-nw)/2,y+(h-nh)/2,nw,nh); wishCtx.restore();
+  wishCtx.strokeStyle='#f4cf70'; wishCtx.lineWidth=5; roundedRect(wishCtx,x,y,w,h,28); wishCtx.stroke();
+ }
+
+ // Temple image
+ if(imgToran){
+  const x=550,y=395,w=475,h=665;
+  wishCtx.save(); roundedRect(wishCtx,x,y,w,h,28); wishCtx.clip();
+  const sc=Math.max(w/imgToran.width,h/imgToran.height);
+  const nw=imgToran.width*sc,nh=imgToran.height*sc;
+  wishCtx.drawImage(imgToran,x+(w-nw)/2,y+(h-nh)/2,nw,nh); wishCtx.restore();
+  wishCtx.strokeStyle='#f4cf70'; wishCtx.lineWidth=5; roundedRect(wishCtx,x,y,w,h,28); wishCtx.stroke();
+ }
+
+ wishCtx.fillStyle='rgba(31,4,6,.88)'; roundedRect(wishCtx,150,1088,780,116,58); wishCtx.fill();
+ wishCtx.strokeStyle='#f4cf70'; wishCtx.lineWidth=3; roundedRect(wishCtx,150,1088,780,116,58); wishCtx.stroke();
+ wishCtx.fillStyle='#fff4d6'; wishCtx.font='bold 34px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('आ गई है देशनोक करणी माता मेला 2026 की Website',W/2,1138);
+ wishCtx.fillStyle='#ffd05b'; wishCtx.font='bold 29px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('🔗 Link Bio में है  •  @bhaktbabaka5555',W/2,1182);
+
+ // Personal photo/name panel
+ const px=150,py=1240,pw=780,ph=445;
+ wishCtx.fillStyle='rgba(255,239,202,.08)'; roundedRect(wishCtx,px,py,pw,ph,30); wishCtx.fill();
+ wishCtx.strokeStyle='rgba(244,207,112,.8)'; wishCtx.lineWidth=3; roundedRect(wishCtx,px,py,pw,ph,30); wishCtx.stroke();
 
  if(wishPhotoData){
   const im=new Image();
   im.onload=()=>{
-   const imgX=px+25,imgY=py+25,imgW=pw-50,imgH=ph-130;
-   wishCtx.save();
-   roundedRect(wishCtx,imgX,imgY,imgW,imgH,16);
-   wishCtx.clip();
-   const s=Math.max(imgW/im.width,imgH/im.height);
-   const nw=im.width*s,nh=im.height*s;
-   wishCtx.drawImage(im,imgX+(imgW-nw)/2,imgY+(imgH-nh)/2,nw,nh);
-   wishCtx.restore();
-
-   wishCtx.strokeStyle='#f2cf79';
-   wishCtx.lineWidth=3;
-   roundedRect(wishCtx,imgX,imgY,imgW,imgH,16);
-   wishCtx.stroke();
+   const ix=px+28,iy=py+25,iw=pw-56,ih=ph-105;
+   wishCtx.save(); roundedRect(wishCtx,ix,iy,iw,ih,22); wishCtx.clip();
+   const sc=Math.max(iw/im.width,ih/im.height),nw=im.width*sc,nh=im.height*sc;
+   wishCtx.drawImage(im,ix+(iw-nw)/2,iy+(ih-nh)/2,nw,nh); wishCtx.restore();
+   wishCtx.strokeStyle='#f4cf70'; wishCtx.lineWidth=3; roundedRect(wishCtx,ix,iy,iw,ih,22); wishCtx.stroke();
    drawMergedPosterFooter(px,py,pw,ph);
-  };
-  im.src=wishPhotoData;
+  }; im.src=wishPhotoData;
  }else{
-  wishCtx.fillStyle='#ffe09a';
-  wishCtx.font='bold 28px "Noto Sans Devanagari",sans-serif';
-  wishCtx.textAlign='center';
-  wishCtx.fillText('👤 अपनी फोटो यहाँ लगाएं',px+pw/2,py+ph/2-40);
+  wishCtx.fillStyle='#ffe2a0'; wishCtx.font='bold 30px "Noto Sans Devanagari",sans-serif';
+  wishCtx.fillText('📸 अपनी फोटो लगाकर पोस्टर को अपना बनाएं',W/2,1455);
   drawMergedPosterFooter(px,py,pw,ph);
  }
 }
@@ -197,29 +150,18 @@ function drawMergedPosterCanvas(imgMurti,imgToran){
 function drawMergedPosterFooter(px,py,pw,ph){
  const W=1080;
  const nameText=$('#wishName')?.value.trim()||'आपका नाम / दुकान';
+ wishCtx.fillStyle='#761b22'; roundedRect(wishCtx,px+18,py+ph-78,pw-36,58,29); wishCtx.fill();
+ wishCtx.strokeStyle='#f4cf70'; wishCtx.lineWidth=2; roundedRect(wishCtx,px+18,py+ph-78,pw-36,58,29); wishCtx.stroke();
+ wishCtx.fillStyle='#ffe8b0'; wishCtx.font='bold 27px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText(nameText,W/2,py+ph-40);
 
- wishCtx.fillStyle='#761b22';
- roundedRect(wishCtx,px+15,py+ph-90,pw-30,72,16);
- wishCtx.fill();
- wishCtx.strokeStyle='#f2cf79';
- wishCtx.lineWidth=3;
- roundedRect(wishCtx,px+15,py+ph-90,pw-30,72,16);
- wishCtx.stroke();
-
- wishCtx.textAlign='center';
- wishCtx.fillStyle='#ffe2a0';
- wishCtx.font='bold 34px "Noto Sans Devanagari",sans-serif';
- wishCtx.fillText(nameText,px+pw/2,py+ph-44);
-
- wishCtx.fillStyle='#f2cf79';
- wishCtx.font='bold 38px "Tiro Devanagari Sanskrit",sans-serif';
- wishCtx.fillText('आ गई है देशनोक करणी माता मेला 2026 की Website',W/2,1250);
-
- wishCtx.fillStyle='#f8dfb3';
- wishCtx.font='26px Arial,sans-serif';
- wishCtx.fillText('🔗 Link Bio में है  •  @bhaktbabaka5555',W/2,1310);
+ wishCtx.fillStyle='#ffd05b'; wishCtx.font='bold 30px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('🙏 दर्शन • भक्ति • मेला • देशनोक धाम',W/2,1770);
+ wishCtx.fillStyle='#fff1cf'; wishCtx.font='bold 35px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('जय माँ करणी री 🚩',W/2,1830);
+ wishCtx.fillStyle='#d9b98d'; wishCtx.font='22px "Noto Sans Devanagari",sans-serif';
+ wishCtx.fillText('करणी माता देशनोक मेला 2026',W/2,1872);
 }
-
 const target=new Date('2026-10-11T00:00:00+05:30').getTime();function countdown(){const d=Math.max(0,target-Date.now());$('#days').textContent=String(Math.floor(d/86400000)).padStart(2,'0');$('#hours').textContent=String(d%86400000/3600000|0).padStart(2,'0');$('#minutes').textContent=String(d%3600000/60000|0).padStart(2,'0');$('#seconds').textContent=String(d%60000/1000|0).padStart(2,'0')}countdown();setInterval(countdown,1000);
 const darkBtn=$('#darkModeBtn');if(darkBtn){darkBtn.addEventListener('click',()=>{document.body.classList.toggle('dark-mode');darkBtn.textContent=document.body.classList.contains('dark-mode')?'☀️':'🌙'})}
 const tickers=['11 अक्टूबर 2026 से • करणी माता देशनोक मेला','🚩 जय माँ करणी री • श्रद्धालु Photo/Video शेयर करें','🎨 Free Poster Maker से अपनी शुभकामना poster बनाएं','🙏 सेवा समिति में अपनी सेवा की जानकारी भेजें'];let ti=0;setInterval(()=>{const t=$('#tickerText');if(t){ti=(ti+1)%tickers.length;t.textContent=tickers[ti]}},4500);
