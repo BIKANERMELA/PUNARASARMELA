@@ -188,6 +188,11 @@ $('#sevaPhotoUploadBtn')?.addEventListener('click',()=>openDriveUploadModal('sev
 $('#driveFallbackOpen')?.addEventListener('click',()=>openDriveUploadModal('media'));
 function youtubeId(raw){try{const u=new URL(raw.trim());if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0].slice(0,11);if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v')?.slice(0,11)||'';if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2]?.slice(0,11)||'';if(u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]?.slice(0,11)||''}}catch(e){}return ''}
 let activeCat='all';const featuredSongs=[
+ {youtubeId:'hYpDIsr2W4o',category:'bhajan',title:'देशाणे री शान डोकरी',name:'Megh Singh Bhati • Rajasthan Vibes • 2026'},
+ {youtubeId:'QFhxjpk2u-8',category:'bhajan',title:'करणी माता ओरण परिक्रमा भजन',name:'Deshnok Darbar Bhajan • 2026'},
+ {youtubeId:'4O42zf5CzV8',category:'bhajan',title:'मां सुखभर दरश दिराओ जी',name:'Ramavtar Marwadi • 2026'},
+ {youtubeId:'LMLJ-ka7IVE',category:'bhajan',title:'करणी-करणी रट ले मनवा',name:'Bhajanee Sanatan Prakash • 2026'},
+ {youtubeId:'3-X54doGKv0',category:'aarti',title:'मंगला आरती दर्शन • माँ करणी देशनोक',name:'Bhajanee Sanatan Prakash • 2026'},
  {youtubeId:'QUtYetF02GU',category:'bhajan',title:'देशाणे की याद आवे',name:'MKS Rajasthani • Pankaj Lawnda'},
  {youtubeId:'ymO2fr_brBI',category:'bhajan',title:'थाने याद करां हर बार',name:'Kuldeep Rajsthani'},
  {youtubeId:'XmlDqRjGKBI',category:'bhajan',title:'श्री करणी माता चालीसा',name:'करणी माता भक्ति'},
