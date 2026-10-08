@@ -3,7 +3,7 @@ import { getFirestore,collection,addDoc,query,where,orderBy,limit,onSnapshot,ser
 const firebaseConfig={apiKey:"AIzaSyA9dEr5JvvGo-xQ-6llmV6rCt_5P258YR0",authDomain:"punarasarmela.firebaseapp.com",projectId:"punarasarmela",storageBucket:"punarasarmela.firebasestorage.app",messagingSenderId:"368252030672",appId:"1:368252030672:web:531a9c3307271819e698d5",measurementId:"G-YMC3Y69L6H"};
 const app=initializeApp(firebaseConfig); const db=getFirestore(app); const $=s=>document.querySelector(s);
 const INSTAGRAM_URL='https://www.instagram.com/bhaktbabaka5555/';
-const SITE_IMAGES={hero:'assets/karni-temple-original.jpg.avif',darshan:'assets/karni-mata-murti-original.jpg.png',toran:'assets/karni-temple-original.jpg.avif',poster:'assets/karni-mata-murti-original.jpg.png'};
+const SITE_IMAGES={hero:'assets/karni-temple-original.jpg.avif?v=20261008-23',darshan:'assets/karni-mata-murti-original.jpg.png?v=20261008-23',toran:'assets/karni-temple-original.jpg.avif?v=20261008-23',poster:'assets/karni-mata-murti-original.jpg.png?v=20261008-23'};
 let galleryFilter='all';
 const POSTER_BASE_IMAGE=SITE_IMAGES.poster;
 const posterStyles={classic:['#5b0909','#a62b17','#2b0808'],royal:['#21120a','#6b4515','#120a06'],minimal:['#3b1712','#b85a2b','#24100c']};
