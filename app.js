@@ -188,6 +188,8 @@ $('#sevaPhotoUploadBtn')?.addEventListener('click',()=>openDriveUploadModal('sev
 $('#driveFallbackOpen')?.addEventListener('click',()=>openDriveUploadModal('media'));
 function youtubeId(raw){try{const u=new URL(raw.trim());if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0].slice(0,11);if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v')?.slice(0,11)||'';if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2]?.slice(0,11)||'';if(u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]?.slice(0,11)||''}}catch(e){}return ''}
 let activeCat='all';const featuredSongs=[
+ {youtubeId:'k6bTVTonnws',category:'bhajan',title:'हाई कोर्ट देशाणो दरबार',name:'Amrit Rajasthani Harasar • 2024'},
+ {youtubeId:'L9d2VAPgbQw',category:'bhajan',title:'माँ करणी म्हारी अरज सुनो',name:'Amrit Rajasthani • Veena Music'},
  {youtubeId:'hYpDIsr2W4o',category:'bhajan',title:'देशाणे री शान डोकरी',name:'Megh Singh Bhati • Rajasthan Vibes • 2026'},
  {youtubeId:'QFhxjpk2u-8',category:'bhajan',title:'करणी माता ओरण परिक्रमा भजन',name:'Deshnok Darbar Bhajan • 2026'},
  {youtubeId:'4O42zf5CzV8',category:'bhajan',title:'मां सुखभर दरश दिराओ जी',name:'Ramavtar Marwadi • 2026'},
