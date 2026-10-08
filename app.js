@@ -188,6 +188,7 @@ $('#sevaPhotoUploadBtn')?.addEventListener('click',()=>openDriveUploadModal('sev
 $('#driveFallbackOpen')?.addEventListener('click',()=>openDriveUploadModal('media'));
 function youtubeId(raw){try{const u=new URL(raw.trim());if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0].slice(0,11);if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v')?.slice(0,11)||'';if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2]?.slice(0,11)||'';if(u.pathname.startsWith('/embed/'))return u.pathname.split('/')[2]?.slice(0,11)||''}}catch(e){}return ''}
 let activeCat='all';const featuredSongs=[
+ {youtubeId:'ljXicO9NGq0',category:'bhajan',title:'डोरी खिंचे डोकरी',name:'Amrit Rajsthani Harasar • 2026'},
  {youtubeId:'3s38G59soSY',category:'bhajan',title:'रट ले रै मनवा माँ करणी नै',name:'Ramavtar Marwadi Official • 2024'},
  {youtubeId:'DQEez9bx85o',category:'bhajan',title:'करणी माँ म्हारा कारज सारो जी',name:'Ramavtar Marwadi • 2025'},
  {youtubeId:'JuhS_GZr-sI',category:'bhajan',title:'देशाणे री डोकरी करणी माता',name:'Chotu Singh Rawna • Official Artist Channel'},
